@@ -6,6 +6,8 @@ export async function onRequest(context) {
     const body = await request.json();
     const userPrompt = body.prompt || "Generate an oral exam question.";
 
+    console.log("Sending POST to /oral-exam");
+
     // Call OpenAI
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
