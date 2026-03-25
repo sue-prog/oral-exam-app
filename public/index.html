@@ -1,12 +1,19 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Oral Exam Prep</title>
-  </head>
-  <body>
-    <h1>Oral Exam Prep</h1>
-    <p>Your site is working!</p>
-    <script src="script.js"></script>
-  </body>
-</html>
+<h1>Oral Exam Prep</h1>
+
+<button id="generate">Generate Question</button>
+
+<pre id="output"></pre>
+
+<script>
+  document.getElementById("generate").addEventListener("click", async () => {
+    const res = await fetch("/oral-exam", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: "Give me an oral exam question." })
+    });
+
+    const data = await res.json();
+    document.getElementById("output").textContent =
+      data.result?.response || JSON.stringify(data, null, 2);
+  });
+</script>
