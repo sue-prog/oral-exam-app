@@ -2,31 +2,22 @@ export async function onRequest(context) {
   try {
     const { request, env } = context;
 
-    // Read JSON body from frontend
+    // Parse the JSON body from the frontend
     const body = await request.json();
     const userPrompt = body.prompt || "Generate an oral exam question.";
 
-    console.log("Sending POST to /oral-exam");
-
-    // Call OpenAI
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${env.OPENAI_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
+    // Call Cloudflare Workers AI (Llama 3 8B)
+    const aiResponse = await env.AI.run(
+      "@cf/meta/llama-3-8b-instruct",
+      {
         messages: [
           { role: "system", content: "You are an FAA oral exam generator." },
           { role: "user", content: userPrompt }
         ]
-      })
-    });
+      }
+    );
 
-    const data = await response.json();
-
-    return new Response(JSON.stringify({ result: data }), {
+    return new Response(JSON.stringify({ result: aiResponse }), {
       headers: { "Content-Type": "application/json" }
     });
 
