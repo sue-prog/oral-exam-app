@@ -298,6 +298,7 @@ async function callLLM(prompt) {
     if (!response.ok) {
       const errText = await response.text();
       console.error("LLM error response:", errText);
+      showError(`API error ${response.status}: ${errText}`);
       return null;
     }
 
