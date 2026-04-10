@@ -74,6 +74,12 @@ header {
   color: var(--gray-400);
 }
 
+.score-tally {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
 .progress-bar-track {
   height: 4px;
   background: var(--gray-200);

@@ -132,6 +132,16 @@ function recordPerformance(areaId, correct) {
   if (correct) sessionPerformance[areaId].correct++;
   else sessionPerformance[areaId].incorrect++;
   savePerformance();
+  updateScoreTally();
+}
+
+function updateScoreTally() {
+  const totals = Object.values(sessionPerformance).reduce(
+    (acc, s) => { acc.correct += s.correct; acc.incorrect += s.incorrect; return acc; },
+    { correct: 0, incorrect: 0 }
+  );
+  const el = document.getElementById("score-tally");
+  if (el) el.textContent = `${totals.correct} correct / ${totals.incorrect} incorrect`;
 }
 
 function getWeakAreas() {
@@ -192,6 +202,11 @@ async function askNextQuestion() {
     llmData = await callLLM(prompt);
   } catch (err) {
     showError(err.message || "The AI engine did not respond. Please try again.");
+    return;
+  }
+
+  if (llmData.scenario === "The AI returned an unexpected response.") {
+    showError("The AI returned an unexpected response. Please try again.");
     return;
   }
 
@@ -390,6 +405,7 @@ function buildEvalPrompt(originalResponse, studentAnswer, area, task) {
       "Respond with a JSON object with these fields: " +
       '{ "evaluation": { "correct": true/false, "feedback": "examiner-style feedback with FAA references" }, ' +
       '"nextAction": "askNextQuestion | moveToNextTask | moveToNextArea | sessionComplete" }. ' +
+      "Address the student directly in second person (e.g. 'You correctly identified...', 'You missed...'). " +
       "Be concise but cite specific FAA references where the student was incomplete or incorrect. " +
       "Do NOT include any text outside the JSON object."
   });
