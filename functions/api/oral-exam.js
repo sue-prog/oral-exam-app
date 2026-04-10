@@ -89,7 +89,7 @@ export async function onRequestPost(context) {
   if (!openAIResponse.ok) {
     const errText = await openAIResponse.text();
     console.error("OpenAI error:", errText);
-    return new Response(JSON.stringify({ error: "OpenAI request failed" }), {
+    return new Response(JSON.stringify({ error: `OpenAI error ${openAIResponse.status}: ${errText}` }), {
       status: 502,
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
