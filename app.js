@@ -186,11 +186,12 @@ async function askNextQuestion() {
   document.getElementById("scenario").textContent = "Generating your question…";
   document.getElementById("question").textContent = "";
 
-  const prompt = await buildPrompt(area, task);
-  const llmData = await callLLM(prompt);
-
-  if (!llmData) {
-    showError("The AI engine did not respond. Please try again.");
+  let llmData;
+  try {
+    const prompt = await buildPrompt(area, task);
+    llmData = await callLLM(prompt);
+  } catch (err) {
+    showError(err.message || "The AI engine did not respond. Please try again.");
     return;
   }
 
@@ -297,16 +298,13 @@ async function callLLM(prompt) {
 
     if (!response.ok) {
       const errText = await response.text();
-      console.error("LLM error response:", errText);
-      showError(`API error ${response.status}: ${errText}`);
-      return null;
+      throw new Error(`API error ${response.status}: ${errText}`);
     }
 
     return await response.json();
 
   } catch (err) {
-    console.error("LLM fetch error:", err);
-    return null;
+    throw err;
   }
 }
 
