@@ -12,6 +12,7 @@ let depthMode = "normal";
 let sessionPerformance = {};   // tracks correct/incorrect per area for this session
 let isAdaptiveMode = false;
 let currentLLMData = null;     // holds the last LLM response while student is answering
+let sessionToken = "";
 
 // ===============================
 // 1. INITIALIZATION
@@ -28,6 +29,7 @@ async function init() {
     showScreen("access-denied");
     return;
   }
+  sessionToken = token;
 
   // --- URL Parameters ---
   // Depth mode: cursory | normal | deep (default: normal)
@@ -289,7 +291,7 @@ async function callLLM(prompt) {
   try {
     const response = await fetch("/api/oral-exam", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "X-Exam-Token": sessionToken },
       body: JSON.stringify({ prompt })
     });
 
