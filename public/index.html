@@ -1,0 +1,47 @@
+<h1>Oral Exam Prep</h1>
+
+<!-- Generate Question -->
+<button id="generate">Generate Question</button>
+<pre id="output"></pre>
+
+<!-- User Answer Input -->
+<textarea id="userAnswer" placeholder="Type your answer here..." rows="5" style="width: 100%; margin-top: 1rem;"></textarea>
+
+<!-- Evaluate Answer -->
+<button id="evaluate" style="margin-top: 0.5rem;">Evaluate My Answer</button>
+<pre id="evaluationOutput"></pre>
+
+<script>
+  // Store the last generated question so we can evaluate the user's answer
+  let lastQuestion = "";
+
+  // Generate Question
+  document.getElementById("generate").addEventListener("click", async () => {
+    const res = await fetch("/oral-exam", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: "Give me an oral exam question." })
+    });
+
+    const data = await res.json();
+    lastQuestion = data.result?.response || "";
+    document.getElementById("output").textContent = lastQuestion;
+  });
+
+  // Evaluate User Answer
+  document.getElementById("evaluate").addEventListener("click", async () => {
+    const userAnswer = document.getElementById("userAnswer").value;
+
+    const res = await fetch("/oral-exam", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        prompt: `Evaluate the following student answer to the question.\n\nQuestion: ${lastQuestion}\n\nStudent Answer: ${userAnswer}\n\nProvide:\n- Correctness\n- Strengths\n- Weaknesses\n- Missing elements\n- Suggested improvements`
+      })
+    });
+
+    const data = await res.json();
+    document.getElementById("evaluationOutput").textContent =
+      data.result?.response || JSON.stringify(data, null, 2);
+  });
+</script>
