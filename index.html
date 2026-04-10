@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oral Exam Prep — Climb</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ACCESS DENIED screen (shown when no token) -->
+  <div id="access-denied" class="screen hidden">
+    <div class="card center-card">
+      <h1>Access Restricted</h1>
+      <p>This tool must be launched from within your Climb training syllabus.</p>
+      <p>If you believe this is an error, contact your instructor.</p>
+    </div>
+  </div>
+
+  <!-- LOADING screen -->
+  <div id="loading" class="screen">
+    <div class="card center-card">
+      <p class="muted">Loading your exam session&hellip;</p>
+    </div>
+  </div>
+
+  <!-- MAIN EXAM screen -->
+  <div id="exam" class="screen hidden">
+
+    <header>
+      <div class="header-inner">
+        <span class="logo">Climb Oral Exam Prep</span>
+        <span id="progress-label" class="progress-label"></span>
+      </div>
+      <div class="progress-bar-track">
+        <div id="progress-bar" class="progress-bar-fill"></div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Area / Task label -->
+      <div id="area-label" class="area-label"></div>
+
+      <!-- Scenario box -->
+      <div class="card" id="scenario-card">
+        <div class="card-label">Scenario</div>
+        <p id="scenario"></p>
+      </div>
+
+      <!-- Question box -->
+      <div class="card" id="question-card">
+        <div class="card-label">Examiner Question</div>
+        <p id="question"></p>
+      </div>
+
+      <!-- Answer box -->
+      <div class="card" id="answer-card">
+        <div class="card-label">Your Answer</div>
+        <textarea
+          id="answer"
+          rows="5"
+          placeholder="Type your answer here, as you would speak it to an examiner…"
+        ></textarea>
+        <button id="submit" class="btn-primary">Submit Answer</button>
+      </div>
+
+      <!-- Feedback box (hidden until answer submitted) -->
+      <div class="card hidden" id="feedback-card">
+        <div class="card-label">Examiner Feedback</div>
+        <p id="feedback"></p>
+        <button id="next" class="btn-secondary">Next Question &rarr;</button>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- SESSION COMPLETE screen -->
+  <div id="complete" class="screen hidden">
+    <div class="card center-card">
+      <h1>Session Complete</h1>
+      <p id="complete-message"></p>
+      <button class="btn-primary" onclick="location.reload()">Start New Session</button>
+    </div>
+  </div>
+
+  <!-- ERROR screen -->
+  <div id="error-screen" class="screen hidden">
+    <div class="card center-card">
+      <h1>Something went wrong</h1>
+      <p id="error-message"></p>
+      <button class="btn-secondary" onclick="location.reload()">Try Again</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

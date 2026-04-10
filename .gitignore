@@ -1,0 +1,21 @@
+# ===============================
+# FILES TO NEVER UPLOAD TO GITHUB
+# ===============================
+
+# Environment / secrets — NEVER commit these
+.env
+.env.local
+.env.*
+*.secret
+
+# Local PDF source files (large, not needed in repo)
+local_pdfs/
+
+# Editor/OS junk
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp
+
+# Node (if you ever add any build tools)
+node_modules/

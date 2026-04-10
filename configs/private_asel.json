@@ -1,0 +1,131 @@
+{
+  "certificate": "Private Pilot",
+  "rating": "Airplane Single-Engine Land",
+
+  "acsUrl": "https://www.faa.gov/sites/faa.gov/files/2024-07/acs_private_airplane.pdf",
+
+  "references": {
+    "PHAK": "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/phak.pdf",
+    "AIM": "https://www.faa.gov/air_traffic/publications/atpubs/aim_html/",
+    "FARs": "https://www.ecfr.gov/current/title-14",
+    "AFH": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/airplane_handbook"
+  },
+
+  "localPdfs": [],
+  "localText": [],
+
+  "areasOfOperation": [
+    {
+      "id": "I",
+      "title": "Preflight Preparation",
+      "tasks": [
+        { "id": "A", "title": "Pilot Qualifications" },
+        { "id": "B", "title": "Airworthiness Requirements" },
+        { "id": "C", "title": "Weather Information" },
+        { "id": "D", "title": "Cross-Country Flight Planning" },
+        { "id": "E", "title": "National Airspace System" },
+        { "id": "F", "title": "Performance and Limitations" },
+        { "id": "G", "title": "Operation of Systems" },
+        { "id": "H", "title": "Human Factors" }
+      ]
+    },
+    {
+      "id": "II",
+      "title": "Preflight Procedures",
+      "tasks": [
+        { "id": "A", "title": "Preflight Assessment" },
+        { "id": "B", "title": "Flight Deck Management" },
+        { "id": "C", "title": "Engine Starting" },
+        { "id": "D", "title": "Taxiing" },
+        { "id": "E", "title": "Before Takeoff Check" }
+      ]
+    },
+    {
+      "id": "III",
+      "title": "Airport and Seaplane Base Operations",
+      "tasks": [
+        { "id": "A", "title": "Communications, Light Signals, and Runway Lighting Systems" },
+        { "id": "B", "title": "Traffic Patterns" }
+      ]
+    },
+    {
+      "id": "IV",
+      "title": "Takeoffs, Landings, and Go-Arounds",
+      "tasks": [
+        { "id": "A", "title": "Normal Takeoff and Climb" },
+        { "id": "B", "title": "Normal Approach and Landing" },
+        { "id": "C", "title": "Soft-Field Takeoff and Climb" },
+        { "id": "D", "title": "Soft-Field Approach and Landing" },
+        { "id": "E", "title": "Short-Field Takeoff and Maximum Performance Climb" },
+        { "id": "F", "title": "Short-Field Approach and Landing" },
+        { "id": "G", "title": "Forward Slip to a Landing" },
+        { "id": "H", "title": "Go-Around / Rejected Landing" }
+      ]
+    },
+    {
+      "id": "V",
+      "title": "Performance and Ground Reference Maneuvers",
+      "tasks": [
+        { "id": "A", "title": "Steep Turns" },
+        { "id": "B", "title": "Ground Reference Maneuvers" }
+      ]
+    },
+    {
+      "id": "VI",
+      "title": "Navigation",
+      "tasks": [
+        { "id": "A", "title": "Pilotage and Dead Reckoning" },
+        { "id": "B", "title": "Navigation Systems and Radar Services" },
+        { "id": "C", "title": "Diversion" },
+        { "id": "D", "title": "Lost Procedures" }
+      ]
+    },
+    {
+      "id": "VII",
+      "title": "Slow Flight and Stalls",
+      "tasks": [
+        { "id": "A", "title": "Maneuvering During Slow Flight" },
+        { "id": "B", "title": "Power-Off Stalls" },
+        { "id": "C", "title": "Power-On Stalls" },
+        { "id": "D", "title": "Spin Awareness" }
+      ]
+    },
+    {
+      "id": "VIII",
+      "title": "Basic Instrument Maneuvers",
+      "tasks": [
+        { "id": "A", "title": "Straight-and-Level Flight" },
+        { "id": "B", "title": "Constant Airspeed Climbs" },
+        { "id": "C", "title": "Constant Airspeed Descents" },
+        { "id": "D", "title": "Turns to Headings" },
+        { "id": "E", "title": "Recovery from Unusual Flight Attitudes" },
+        { "id": "F", "title": "Radio Communications, Navigation Systems/Facilities, and Radar Services" }
+      ]
+    },
+    {
+      "id": "IX",
+      "title": "Emergency Operations",
+      "tasks": [
+        { "id": "A", "title": "Emergency Descent" },
+        { "id": "B", "title": "Emergency Approach and Landing" },
+        { "id": "C", "title": "Systems and Equipment Malfunctions" },
+        { "id": "D", "title": "Emergency Equipment and Survival Gear" },
+        { "id": "E", "title": "Aeromedical Factors and Physiology" }
+      ]
+    },
+    {
+      "id": "X",
+      "title": "Night Operations",
+      "tasks": [
+        { "id": "A", "title": "Night Preparation" }
+      ]
+    },
+    {
+      "id": "XI",
+      "title": "Postflight Procedures",
+      "tasks": [
+        { "id": "A", "title": "After Landing, Parking, and Securing" }
+      ]
+    }
+  ]
+}
