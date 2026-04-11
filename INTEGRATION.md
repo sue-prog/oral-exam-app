@@ -110,45 +110,61 @@ Designed for embedding in course modules where you want to test one specific are
 
 ## Receiving Results
 
-There are two ways to receive results when a single-area session ends.
+Results are only returned automatically in **single-area mode** (`?mode=single`). In full exam mode, the session ends on a completion screen inside the app and nothing is sent back to the calling platform.
+
+When a student clicks **Finish** on the single-area result screen, the app packages up the session results and sends them back using one or both of the mechanisms below — depending on what parameters were in the original launch URL.
+
+### What data is returned
+
+Regardless of which mechanism delivers the results, the same set of values is always included:
+
+| Field | Type | Description |
+|---|---|---|
+| `type` | String | Always `oralExamResult` — use this to identify the message |
+| `area` | String | Area of Operation ID (e.g., `VII`) |
+| `areaTitle` | String | Area title (e.g., `Slow Flight and Stalls`) |
+| `score` | Number | Percentage score, 0–100. Partial credit answers count as 0.5. Example: 7 correct + 2 partial + 1 incorrect out of 10 = 80% |
+| `correct` | Number | Number of answers graded correct |
+| `partial` | Number | Number of answers graded partial credit |
+| `incorrect` | Number | Number of answers graded incorrect |
+| `total` | Number | Total questions answered in the session |
+| `passed` | Boolean | `true` if score ≥ 90, `false` otherwise |
 
 ### Option 1: URL Redirect (recommended for most platforms)
 
-Add `returnUrl=https://yourapp.com/results` to the launch URL. When the student clicks Finish, the tool redirects to that URL with the following query parameters appended:
+Add `returnUrl=https://yourapp.com/results` to the launch URL. When the student clicks Finish, the browser navigates to that URL with all result fields appended as query string parameters.
 
-| Parameter | Type | Description |
-|---|---|---|
-| `type` | String | Always `oralExamResult` |
-| `area` | String | Area ID (e.g., `VII`) |
-| `areaTitle` | String | Area title (e.g., `Slow Flight and Stalls`) |
-| `score` | Number | Percentage score (0–100, with partial credit at 0.5 weight) |
-| `correct` | Number | Number of correct answers |
-| `partial` | Number | Number of partial credit answers |
-| `incorrect` | Number | Number of incorrect answers |
-| `total` | Number | Total questions answered |
-| `passed` | Boolean | `true` if score ≥ 90 |
+Your server receives a GET request to something like:
+```
+https://yourapp.com/results?type=oralExamResult&area=VII&areaTitle=Slow+Flight+and+Stalls&score=80&correct=7&partial=2&incorrect=1&total=10&passed=false
+```
 
-Example redirect URL your server would receive:
-```
-https://yourapp.com/results?type=oralExamResult&area=VII&areaTitle=Slow+Flight+and+Stalls&score=85&correct=7&partial=3&incorrect=1&total=10&passed=false
-```
+Your server-side code reads those query parameters and does whatever it needs to — record the score, mark a course module complete, redirect the student to the next lesson, etc.
+
+**Important:** the `returnUrl` must be an absolute URL (including `https://`). Relative URLs will not work. If the URL is malformed, the app will fall back to showing its own completion screen instead of redirecting.
 
 ### Option 2: postMessage (for iframe embedding)
 
-If you embed the tool in an `<iframe>`, the tool sends a `window.postMessage` to the parent page when the student clicks Finish. The message payload is the same data as above, as a JavaScript object.
+If you embed the tool in an `<iframe>` on your page rather than opening it in a new tab, the app sends a `window.postMessage` to the parent page automatically when Finish is clicked — no `returnUrl` needed.
 
-Listen for it in your parent page:
+Add this listener to your parent page's JavaScript:
 
 ```javascript
 window.addEventListener("message", (event) => {
+  // Always check the type field before acting
   if (event.data?.type === "oralExamResult") {
-    const { area, score, passed, correct, partial, incorrect, total } = event.data;
-    // handle result
+    const { area, areaTitle, score, passed, correct, partial, incorrect, total } = event.data;
+    console.log(`Student scored ${score}% on ${areaTitle}. Passed: ${passed}`);
+    // record the result, unlock the next module, etc.
   }
 });
 ```
 
-Note: the tool sends postMessage regardless of whether `returnUrl` is set, so you can use both simultaneously if needed.
+The postMessage fires regardless of whether `returnUrl` is also set, so you can use both at the same time if needed (e.g., postMessage to update the UI instantly, and redirect to record it server-side).
+
+### When no return mechanism is configured
+
+If neither `returnUrl` nor iframe embedding is used, clicking Finish simply shows the app's built-in completion screen. No data is sent anywhere. This is fine for standalone use where you don't need to capture results programmatically.
 
 ---
 
@@ -233,6 +249,131 @@ Understanding this flow will help you decide if the tool fits your use case.
 - Change the topic or area being tested
 - Instruct the AI to change its behavior
 - Navigate backward to previous questions
+
+---
+
+## Maintaining This App (Novice Guide)
+
+This section is for someone who has inherited this app and needs to make changes — but isn't a developer by trade. You don't need to understand all of the code to make the most common updates.
+
+### How the app gets updated
+
+This app uses a simple three-step chain:
+
+```
+You edit a file on your computer
+        ↓
+You "push" it to GitHub (an online code storage service)
+        ↓
+Cloudflare (the hosting service) automatically detects the change and republishes the app
+```
+
+Cloudflare usually takes 1–2 minutes to republish after a push. You don't need to do anything in Cloudflare directly for normal content changes.
+
+---
+
+### What you need installed
+
+- **Git** — the tool that sends your changes to GitHub. Download from https://git-scm.com
+- **A code editor** — VS Code (free, from https://code.visualstudio.com) works well and is what this project was built with
+
+You'll also need access to the GitHub repository (`sue-prog/oral-exam-app`) and to the Cloudflare dashboard (for secrets/environment variables only — not for regular content changes).
+
+---
+
+### The most common thing you'll maintain: grounding notes
+
+If the AI grades an answer incorrectly, the most effective fix is to improve the **grounding notes** for that Area of Operation. These are plain-text facts that the AI uses as a reference when grading.
+
+**Where they live:** `configs/private_asel.json` — look for the `"groundingNotes"` field inside each area.
+
+**How to edit them:**
+
+1. Open the file in VS Code
+2. Find the area you want to improve (e.g., search for `"VII"` to find Slow Flight and Stalls)
+3. Edit the text inside the `"groundingNotes": "..."` value
+4. Keep it as plain sentences — no special formatting needed
+5. Be careful not to accidentally delete the surrounding quote marks or commas
+6. Save the file
+
+The notes can be as long as you like. More specific factual detail (exact numbers, correct directions, specific procedure sequences) is more useful than general summaries.
+
+**Example — before:**
+```json
+"groundingNotes": "Slow flight requires rudder coordination."
+```
+
+**Example — after (more useful):**
+```json
+"groundingNotes": "Slow flight requires RIGHT rudder input to counteract left-turning tendencies. Never left rudder. P-factor and torque both cause left yaw at high power and low airspeed."
+```
+
+---
+
+### Updating the exam prompt
+
+The file `prompts/oral_exam_prompt.txt` controls how the AI generates questions and what rules it follows. It's a plain text file — open it in any text editor.
+
+Be cautious editing the sections marked with `===` headings. The most useful things to adjust:
+- The **DEPTH MODE BEHAVIOR** section, if you want to change how many questions are asked at each depth
+- The **SCENARIO GENERATION RULES** section, if you want to nudge the types of scenarios generated
+
+Do not delete or rename the `{{placeholder}}` values — these are filled in automatically at runtime.
+
+---
+
+### Pushing changes to GitHub (deploying your edits)
+
+After editing any file, you need to push the change to GitHub to make it live. Here's how to do that using VS Code's built-in Git interface — no command line required.
+
+**One-time setup:** Make sure the project folder is open in VS Code and Git is installed.
+
+**Each time you make a change:**
+
+1. Save the file(s) you edited (Ctrl+S / Cmd+S)
+2. Click the **Source Control** icon in the left sidebar — it looks like a branching tree, and will show a number badge if you have unsaved changes
+3. You'll see your changed files listed under "Changes"
+4. Hover over the file and click the **+** (plus) icon to stage it
+5. Type a short description of what you changed in the "Message" box at the top (e.g., `Improve grounding notes for Area VII`)
+6. Click the **Commit** button (checkmark)
+7. Click the **Sync Changes** button (circular arrows) that appears — this pushes to GitHub
+
+Within 1–2 minutes, Cloudflare will pick up the change and redeploy the app automatically.
+
+**If you prefer the command line**, the equivalent is:
+```bash
+git add configs/private_asel.json
+git commit -m "Improve grounding notes for Area VII"
+git push
+```
+
+---
+
+### Changing secrets (API keys, access token)
+
+Secrets are **not** stored in the code files — they live in Cloudflare's dashboard so they're never accidentally shared. To update them:
+
+1. Log into https://dash.cloudflare.com
+2. Go to **Workers & Pages** → click `oral-exam-app`
+3. Go to **Settings** → **Environment variables**
+4. Click **Edit** next to the variable you want to change
+5. Enter the new value and save
+6. Trigger a new deployment (push any small change, or use the Cloudflare dashboard to redeploy)
+
+The two secrets are:
+- `OPENAI_API_KEY` — your OpenAI API key. Rotate this if you suspect it has been compromised.
+- `VALID_TOKEN` — the shared access token students use in the URL. Change this to lock out anyone using an old link.
+
+---
+
+### Things NOT to edit without developer help
+
+- `app.js` — the main application logic. Edits here can break the entire app.
+- `functions/api/oral-exam.js` or `functions/api/flag.js` — the server-side functions.
+- `wrangler.toml` — the Cloudflare configuration.
+- `index.html` — the page structure. Minor text edits are low-risk, but structural changes can break the layout.
+
+If something breaks after an edit, the safest recovery is to undo the change in VS Code (Ctrl+Z), save, and push again.
 
 ---
 
