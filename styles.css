@@ -80,6 +80,34 @@ header {
   color: var(--gray-700);
 }
 
+/* --- Single-area result screen --- */
+.big-score {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+  margin: 8px 0;
+}
+
+.big-score.score-pass {
+  color: var(--green);
+}
+
+.big-score.score-fail {
+  color: var(--red);
+}
+
+#single-area-complete .btn-secondary {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+}
+
+#single-area-complete .btn-primary {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+}
+
 .progress-bar-track {
   height: 4px;
   background: var(--gray-200);
