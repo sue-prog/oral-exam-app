@@ -125,11 +125,12 @@ function savePerformance() {
   localStorage.setItem("oralExamPerformance", JSON.stringify(sessionPerformance));
 }
 
-function recordPerformance(areaId, correct) {
+function recordPerformance(areaId, grade) {
   if (!sessionPerformance[areaId]) {
-    sessionPerformance[areaId] = { correct: 0, incorrect: 0 };
+    sessionPerformance[areaId] = { correct: 0, partial: 0, incorrect: 0 };
   }
-  if (correct) sessionPerformance[areaId].correct++;
+  if (grade === "correct") sessionPerformance[areaId].correct++;
+  else if (grade === "partial") sessionPerformance[areaId].partial++;
   else sessionPerformance[areaId].incorrect++;
   savePerformance();
   updateScoreTally();
@@ -137,16 +138,25 @@ function recordPerformance(areaId, correct) {
 
 function updateScoreTally() {
   const totals = Object.values(sessionPerformance).reduce(
-    (acc, s) => { acc.correct += s.correct; acc.incorrect += s.incorrect; return acc; },
-    { correct: 0, incorrect: 0 }
+    (acc, s) => {
+      acc.correct += s.correct;
+      acc.partial += (s.partial || 0);
+      acc.incorrect += s.incorrect;
+      return acc;
+    },
+    { correct: 0, partial: 0, incorrect: 0 }
   );
   const el = document.getElementById("score-tally");
-  if (el) el.textContent = `${totals.correct} correct / ${totals.incorrect} incorrect`;
+  if (!el) return;
+  const parts = [`${totals.correct} correct`];
+  if (totals.partial > 0) parts.push(`${totals.partial} partial`);
+  parts.push(`${totals.incorrect} incorrect`);
+  el.textContent = parts.join(" / ");
 }
 
 function getWeakAreas() {
   return Object.entries(sessionPerformance)
-    .filter(([, stats]) => stats.incorrect > stats.correct)
+    .filter(([, stats]) => (stats.incorrect + (stats.partial || 0) * 0.5) > stats.correct)
     .map(([areaId]) => areaId);
 }
 
@@ -260,16 +270,24 @@ function startAdaptiveFlow() {
 }
 
 function showCompletion() {
-  const total = Object.values(sessionPerformance).reduce(
-    (sum, s) => sum + s.correct + s.incorrect, 0
+  const totals = Object.values(sessionPerformance).reduce(
+    (acc, s) => {
+      acc.correct += s.correct;
+      acc.partial += (s.partial || 0);
+      acc.incorrect += s.incorrect;
+      return acc;
+    },
+    { correct: 0, partial: 0, incorrect: 0 }
   );
-  const correct = Object.values(sessionPerformance).reduce(
-    (sum, s) => sum + s.correct, 0
-  );
-  const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+  const total = totals.correct + totals.partial + totals.incorrect;
+  const pct = total > 0 ? Math.round(((totals.correct + totals.partial * 0.5) / total) * 100) : 0;
+
+  const parts = [`${totals.correct} correct`];
+  if (totals.partial > 0) parts.push(`${totals.partial} partial`);
+  parts.push(`${totals.incorrect} incorrect`);
 
   document.getElementById("complete-message").textContent =
-    `You answered ${correct} of ${total} questions correctly (${pct}%). ` +
+    `You answered ${parts.join(", ")} out of ${total} questions (${pct}% score). ` +
     `Well done working through the entire exam — keep it up!`;
 
   showScreen("complete");
@@ -358,14 +376,13 @@ async function handleSubmit() {
   }
 
   // Show feedback
-  const correct = evalData.evaluation?.correct ?? true;
+  const grade = evalData.evaluation?.grade ?? (evalData.evaluation?.correct ? "correct" : "incorrect");
   feedbackEl.textContent = evalData.evaluation?.feedback || evalData.evaluation || "Answer recorded.";
-  feedbackCard.classList.remove("hidden");
-  feedbackCard.classList.toggle("correct", correct);
-  feedbackCard.classList.toggle("incorrect", !correct);
+  feedbackCard.classList.remove("hidden", "correct", "partial", "incorrect");
+  feedbackCard.classList.add(grade);
 
   // Record in performance log
-  recordPerformance(area.id, correct);
+  recordPerformance(area.id, grade);
 
   // Store next action for the Next button
   feedbackCard.dataset.nextAction = evalData.nextAction || "askNextQuestion";
@@ -404,12 +421,14 @@ function buildEvalPrompt(originalResponse, studentAnswer, area, task) {
       "Evaluate the student's answer using FAA ACS standards. " +
       "Grade based strictly on what the question actually asked — do not penalize for omitting information that was not required by the question. " +
       "For example, if the question asks what must be carried on the person, do not mark incorrect for failing to list documents that must exist but need not be carried. " +
-      "Mark correct if the student's answer is substantively accurate and responsive to the specific question asked, even if it lacks exhaustive detail. " +
-      "Only mark incorrect if the student's answer contains a factual error or clearly omits something the question specifically required. " +
+      "Use a three-level grade: " +
+      "'correct' — answer is substantively accurate and responsive to what was asked, even if not exhaustive; " +
+      "'partial' — answer got the core idea right but missed one or more meaningful required elements or contained a minor inaccuracy; " +
+      "'incorrect' — answer contains a clear factual error or completely missed what was asked. " +
       "Respond with a JSON object with these fields: " +
-      '{ "evaluation": { "correct": true/false, "feedback": "examiner-style feedback with FAA references" }, ' +
+      '{ "evaluation": { "grade": "correct|partial|incorrect", "feedback": "examiner-style feedback with FAA references" }, ' +
       '"nextAction": "askNextQuestion | moveToNextTask | moveToNextArea | sessionComplete" }. ' +
-      "Address the student directly in second person (e.g. 'You correctly identified...', 'You missed...'). " +
+      "Address the student directly in second person (e.g. 'You correctly identified...', 'You were close but missed...', 'You missed...'). " +
       "Be concise but cite specific FAA references where the student was incomplete or incorrect. " +
       "Do NOT include any text outside the JSON object."
   });
