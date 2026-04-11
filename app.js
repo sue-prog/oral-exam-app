@@ -364,9 +364,45 @@ async function callLLM(prompt) {
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("submit").addEventListener("click", handleSubmit);
   document.getElementById("next").addEventListener("click", handleNext);
+  document.getElementById("flag-btn").addEventListener("click", handleFlag);
   document.getElementById("single-area-more").addEventListener("click", handleSingleAreaMore);
   document.getElementById("single-area-done").addEventListener("click", returnResults);
 });
+
+async function handleFlag() {
+  const btn = document.getElementById("flag-btn");
+  btn.disabled = true;
+  btn.textContent = "Flagging…";
+
+  const area = config.areasOfOperation[currentAreaIndex];
+  const task = area?.tasks?.[currentTaskIndex] ?? null;
+  const feedbackCard = document.getElementById("feedback-card");
+
+  const payload = {
+    timestamp: new Date().toISOString(),
+    certificate: config.certificate,
+    areaId: area.id,
+    areaTitle: area.title,
+    taskId: task ? `${task.id}: ${task.title}` : "",
+    scenario: currentLLMData?.scenario || "",
+    question: currentLLMData?.question || "",
+    studentAnswer: document.getElementById("answer").value,
+    aiGrade: feedbackCard.classList.contains("correct") ? "correct"
+            : feedbackCard.classList.contains("partial") ? "partial" : "incorrect",
+    aiFeedback: document.getElementById("feedback").textContent
+  };
+
+  try {
+    const res = await fetch("/api/flag", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Exam-Token": sessionToken },
+      body: JSON.stringify(payload)
+    });
+    btn.textContent = res.ok ? "Flagged ✓" : "Flag failed";
+  } catch {
+    btn.textContent = "Flag failed";
+  }
+}
 
 async function handleSubmit() {
   const answer = document.getElementById("answer").value.trim();
@@ -429,6 +465,7 @@ function handleNext() {
 // After the student answers, we send a second prompt to the LLM asking it
 // to evaluate the answer and provide feedback.
 function buildEvalPrompt(originalResponse, studentAnswer, area, task) {
+  const groundingNotes = area.groundingNotes || "";
   return JSON.stringify({
     role: "evaluator",
     certificate: config.certificate,
@@ -440,14 +477,16 @@ function buildEvalPrompt(originalResponse, studentAnswer, area, task) {
     originalScenario: originalResponse.scenario,
     originalQuestion: originalResponse.question,
     studentAnswer: studentAnswer,
+    groundingNotes: groundingNotes,
     instruction:
       "Evaluate the student's answer using FAA ACS standards. " +
-      "Grade based strictly on what the question actually asked — do not penalize for omitting information that was not required by the question. " +
-      "For example, if the question asks what must be carried on the person, do not mark incorrect for failing to list documents that must exist but need not be carried. " +
+      "If groundingNotes are provided, treat them as authoritative reference facts for this area and use them to verify the student's answer. " +
+      "Grade based strictly on what the question actually asked — do not penalize for omitting information not required by the question. " +
+      "CRITICAL GRADING RULE: If any part of the student's answer contains a specific factual error — such as a wrong direction, wrong number, wrong procedure step, or wrong control input — the answer MUST be graded 'partial' or 'incorrect' regardless of how much else was correct. A mostly correct answer with one specific wrong fact is never 'correct'. " +
       "Use a three-level grade: " +
-      "'correct' — answer is substantively accurate and responsive to what was asked, even if not exhaustive; " +
-      "'partial' — answer got the core idea right but missed one or more meaningful required elements or contained a minor inaccuracy; " +
-      "'incorrect' — answer contains a clear factual error or completely missed what was asked. " +
+      "'correct' — every factual claim in the answer is accurate and it is responsive to what was asked, even if not exhaustive; " +
+      "'partial' — got the core idea right but missed a meaningful required element, OR contained a minor/specific factual inaccuracy; " +
+      "'incorrect' — contains a clear factual error that would fail an FAA checkride, or completely missed what was asked. " +
       "Respond with a JSON object with these fields: " +
       '{ "evaluation": { "grade": "correct|partial|incorrect", "feedback": "examiner-style feedback with FAA references" }, ' +
       '"nextAction": "askNextQuestion | moveToNextTask | moveToNextArea | sessionComplete" }. ' +

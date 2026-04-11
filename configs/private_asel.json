@@ -18,6 +18,7 @@
     {
       "id": "I",
       "title": "Preflight Preparation",
+      "groundingNotes": "ARROW documents must be on board the aircraft: Airworthiness certificate, Registration certificate, Radio station license (required for international flight only), Operating limitations (AFM/POH), Weight and balance data. The pilot must have in their personal possession: pilot certificate, medical certificate, and government-issued photo ID (14 CFR 61.3). A logbook is not required to be carried but recent flight experience endorsements must be accessible. Weather minimums for student solo: as specified by CFI endorsement. VFR cruising altitudes: odd thousands + 500 ft (0-179 magnetic), even thousands + 500 ft (180-359 magnetic) above 3,000 ft AGL (14 CFR 91.159). Fuel reserves: day VFR 30 minutes, night VFR 45 minutes at normal cruise (14 CFR 91.151).",
       "tasks": [
         { "id": "A", "title": "Pilot Qualifications" },
         { "id": "B", "title": "Airworthiness Requirements" },
@@ -32,6 +33,7 @@
     {
       "id": "II",
       "title": "Preflight Procedures",
+      "groundingNotes": "The preflight inspection follows the POH checklist sequence. The pilot-in-command is responsible for determining the aircraft is airworthy (14 CFR 91.7). Fuel color: 100LL is blue, Jet-A is clear/straw — ensure correct fuel type. Sumping fuel checks for water contamination (water sinks to bottom). Oil level checked against POH minimums. Control surface freedom of movement and correct direction of deflection must be verified. Static ports checked for blockage. Pitot heat function should be verified if equipped.",
       "tasks": [
         { "id": "A", "title": "Preflight Assessment" },
         { "id": "B", "title": "Flight Deck Management" },
@@ -43,6 +45,7 @@
     {
       "id": "III",
       "title": "Airport and Seaplane Base Operations",
+      "groundingNotes": "Traffic pattern altitude is typically 1,000 ft AGL for piston aircraft. Standard pattern is LEFT traffic unless otherwise indicated by segmented circle or NOTAM. Light gun signals: steady green (cleared to land/cleared for takeoff), flashing green (return for landing/cleared to taxi), steady red (stop/give way), flashing red (airport unsafe/taxi clear of runway), flashing white (return to start/not applicable in air), alternating red/green (exercise extreme caution). CTAF used at non-towered airports. Runway markings: numbers indicate magnetic heading divided by 10, rounded to nearest 10 degrees.",
       "tasks": [
         { "id": "A", "title": "Communications, Light Signals, and Runway Lighting Systems" },
         { "id": "B", "title": "Traffic Patterns" }
@@ -51,6 +54,7 @@
     {
       "id": "IV",
       "title": "Takeoffs, Landings, and Go-Arounds",
+      "groundingNotes": "Normal takeoff: rotate at Vr, climb at Vy for best altitude gain or Vx for obstacle clearance. Soft-field takeoff: hold back pressure to transfer weight off nosewheel early, lift off at lowest possible airspeed, level off in ground effect to accelerate to Vx/Vy. Short-field takeoff: hold brakes, full power, rotate at Vr, climb at Vx until obstacle cleared then Vy. Normal landing: approach at 1.3 Vso or as per POH. Short-field landing: approach at 1.3 Vso, touch down at threshold, apply maximum braking. Soft-field landing: hold aircraft off as long as possible, touch down at minimum speed, hold back pressure after touchdown. Go-around: full power, carb heat off, establish positive climb, retract flaps incrementally to recommended setting. A forward slip is used to lose altitude without gaining airspeed — opposite rudder to bank direction.",
       "tasks": [
         { "id": "A", "title": "Normal Takeoff and Climb" },
         { "id": "B", "title": "Normal Approach and Landing" },
@@ -65,6 +69,7 @@
     {
       "id": "V",
       "title": "Performance and Ground Reference Maneuvers",
+      "groundingNotes": "Steep turns: 45° bank, maintain altitude ±100 ft, airspeed ±10 knots, roll out on entry heading ±10°. Need to add back pressure and slight power to maintain altitude due to increased load factor. Load factor at 45° bank = 1.41G. Turns around a point, S-turns, and rectangular course all correct for wind drift by varying bank angle — steeper bank when flying downwind (groundspeed highest), shallower when flying upwind. Entry altitude typically 600-1000 ft AGL. Reference point should remain equidistant throughout maneuver.",
       "tasks": [
         { "id": "A", "title": "Steep Turns" },
         { "id": "B", "title": "Ground Reference Maneuvers" }
@@ -73,6 +78,7 @@
     {
       "id": "VI",
       "title": "Navigation",
+      "groundingNotes": "Pilotage: visual checkpoints on chart matched to ground. Dead reckoning: uses heading, airspeed, time, and wind correction angle (WCA). True course → magnetic course (apply variation) → magnetic heading (apply deviation). ATIS/AWOS/ASOS frequencies on sectional. VOR: needle deflection 2° per dot, 10° full-scale. CDI full-scale deflection = 10°. TO/FROM flag indicates position relative to station. GPS RAIM must be confirmed for IFR; GPS is supplemental for VFR. If lost: climb, conserve, communicate, confess, comply. Diversion: estimate heading and time using mental math — time = distance ÷ groundspeed.",
       "tasks": [
         { "id": "A", "title": "Pilotage and Dead Reckoning" },
         { "id": "B", "title": "Navigation Systems and Radar Services" },
@@ -83,6 +89,7 @@
     {
       "id": "VII",
       "title": "Slow Flight and Stalls",
+      "groundingNotes": "LEFT-TURNING TENDENCIES require RIGHT RUDDER input during slow flight and stalls — never left rudder. The four left-turning tendencies are: (1) Torque reaction — engine rotates clockwise (from pilot view), airframe reacts counterclockwise; (2) P-factor (asymmetric thrust) — descending blade on right produces more thrust at high AOA; (3) Spiraling slipstream — corkscrew airflow strikes left side of vertical stabilizer; (4) Gyroscopic precession — applies mainly during pitch changes in tailwheel aircraft. All four tendencies cause left yaw, requiring RIGHT RUDDER correction. During slow flight, right rudder pressure increases significantly with power. Stall recovery: simultaneously reduce AOA (forward pressure), add full power, right rudder for coordination, retract flaps incrementally. Power-off stall recovery: pitch forward to break stall, full power, coordinate with right rudder. Power-on stall: occurs at higher airspeed than power-off stall; left roll/yaw tendency more pronounced — right rudder critical. Spin entry requires BOTH stall AND yaw (uncoordinated flight). PARE recovery: Power off, Ailerons neutral, Rudder full opposite to rotation direction, Elevator forward to break stall. Incipient spin vs. developed spin: incipient is first 1-2 turns; developed has stabilized rotation rate.",
       "tasks": [
         { "id": "A", "title": "Maneuvering During Slow Flight" },
         { "id": "B", "title": "Power-Off Stalls" },
@@ -93,6 +100,7 @@
     {
       "id": "VIII",
       "title": "Basic Instrument Maneuvers",
+      "groundingNotes": "Straight and level: cross-check attitude indicator, altimeter, VSI, heading indicator. Standard rate turn = 3° per second; bank angle ≈ (airspeed ÷ 10) + 7. Timed turns: 3°/sec so 180° = 60 sec, 360° = 120 sec. Unusual attitude recovery — nose high: reduce AOA, add power, level wings; nose low: reduce power, level wings, then pull to horizon. Instrument scan order: attitude indicator is primary, supported by performance instruments. Partial panel (AI failure): use turn coordinator + compass for heading, altimeter + VSI for pitch. Magnetic compass errors: ANDS (Accelerate-North, Decelerate-South) and turning errors (compass leads in southern headings, lags in northern headings in northern hemisphere).",
       "tasks": [
         { "id": "A", "title": "Straight-and-Level Flight" },
         { "id": "B", "title": "Constant Airspeed Climbs" },
@@ -105,6 +113,7 @@
     {
       "id": "IX",
       "title": "Emergency Operations",
+      "groundingNotes": "Engine failure in flight: best glide speed (Vg) from POH gives maximum glide range. Memory items: airspeed to Vg, best landing area, checklist (fuel, ignition, primer, mixture, carb heat). Carb ice most likely at 20-70°F OAT with high humidity; symptoms: RPM drop in fixed-pitch, manifold pressure drop in constant-speed; apply carb heat — RPM may drop further initially (ice melting) then rise. Forced landing: ABCDE — Airspeed (Vg), Best field, Checklist, Declare emergency (7700/mayday), Execute. Squawk 7700 for emergency, 7600 for lost comms, 7500 for hijacking. ELT transmits on 406 MHz (digital) and 121.5 MHz. Systems malfunctions: electrical fire — master off, vents open; engine fire on ground — mixture cutoff, fuel off, ignition off, evacuate.",
       "tasks": [
         { "id": "A", "title": "Emergency Descent" },
         { "id": "B", "title": "Emergency Approach and Landing" },
@@ -116,6 +125,7 @@
     {
       "id": "X",
       "title": "Night Operations",
+      "groundingNotes": "Night VFR currency: 3 full-stop night landings within 90 days to carry passengers (14 CFR 61.57). Night defined as 1 hour after sunset to 1 hour before sunrise for currency. Pilot lights: red on left wingtip, green on right wingtip, white on tail — 'red right returning' is wrong for aviation (red is LEFT). Anti-collision lights (strobe or rotating beacon) required from sunset to sunrise. Illusions: autokinesis (stationary light appears to move), black hole approach (no terrain cues leads to low approach), false horizon. Hypoxia risk increases at night due to retinal rods requiring more oxygen. Dark adaptation takes 30 minutes; destroyed by bright light in seconds. Use off-center vision (averted vision) at night to use rods instead of cones.",
       "tasks": [
         { "id": "A", "title": "Night Preparation" }
       ]
@@ -123,6 +133,7 @@
     {
       "id": "XI",
       "title": "Postflight Procedures",
+      "groundingNotes": "After landing checklist: flaps up, transponder to standby or ALT, lights as required, taxi to ramp. Securing: mixture to idle cutoff (fuel-injected: mixture to cutoff then ignition off when engine stops), master off, control lock installed, chocks and tie-downs. Hobbs vs. tach time distinction — relevant for maintenance tracking. Squawk any discrepancies in maintenance logbook. Fuel aircraft if required for next flight. Secure cockpit — remove valuables, close and lock doors/windows.",
       "tasks": [
         { "id": "A", "title": "After Landing, Parking, and Securing" }
       ]
