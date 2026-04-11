@@ -402,6 +402,10 @@ function buildEvalPrompt(originalResponse, studentAnswer, area, task) {
     studentAnswer: studentAnswer,
     instruction:
       "Evaluate the student's answer using FAA ACS standards. " +
+      "Grade based strictly on what the question actually asked — do not penalize for omitting information that was not required by the question. " +
+      "For example, if the question asks what must be carried on the person, do not mark incorrect for failing to list documents that must exist but need not be carried. " +
+      "Mark correct if the student's answer is substantively accurate and responsive to the specific question asked, even if it lacks exhaustive detail. " +
+      "Only mark incorrect if the student's answer contains a factual error or clearly omits something the question specifically required. " +
       "Respond with a JSON object with these fields: " +
       '{ "evaluation": { "correct": true/false, "feedback": "examiner-style feedback with FAA references" }, ' +
       '"nextAction": "askNextQuestion | moveToNextTask | moveToNextArea | sessionComplete" }. ' +
