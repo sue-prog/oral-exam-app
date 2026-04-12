@@ -807,7 +807,7 @@ function handleChallenge() {
     aiFeedback: document.getElementById("feedback").textContent
   });
 
-  btn.textContent = "Grade Challenged ✓";
+  btn.textContent = "Challenged ✓ — instructor will review";
   btn.dataset.challenged = "true";
   btn.disabled = true;
 }
@@ -914,24 +914,48 @@ function buildEvalPrompt(originalResponse, studentAnswer, area, task) {
     studentAnswer: studentAnswer,
     groundingNotes: groundingNotes,
     instruction:
-      "Evaluate the student's answer using FAA ACS standards. " +
-      "SCENARIO CONTEXT: The student was presented with the scenario in 'originalScenario' and asked the question in 'originalQuestion'. " +
-      "Read both carefully before grading. The student's answer must be evaluated in the context of the scenario — " +
-      "if the scenario places them on the ground and the question asks about a ground procedure, do not penalize them for not addressing in-flight factors. " +
-      "If there is a contradiction between the scenario and the question (e.g., the question asks about something the scenario does not set up), " +
-      "grade the student on what the question asked and note the inconsistency in your feedback without penalizing the student for it. " +
-      "If groundingNotes are provided, treat them as authoritative reference facts for this area and use them to verify the student's answer. " +
-      "Grade based strictly on what the question actually asked — do not penalize for omitting information not required by the question. " +
-      "CRITICAL GRADING RULE: If any part of the student's answer contains a specific factual error — such as a wrong direction, wrong number, wrong procedure step, or wrong control input — the answer MUST be graded 'partial' or 'incorrect' regardless of how much else was correct. A mostly correct answer with one specific wrong fact is never 'correct'. " +
-      "Use a three-level grade: " +
-      "'correct' — every factual claim in the answer is accurate and it is responsive to what was asked, even if not exhaustive; " +
-      "'partial' — got the core idea right but missed a meaningful required element, OR contained a minor/specific factual inaccuracy; " +
-      "'incorrect' — contains a clear factual error that would fail an FAA checkride, or completely missed what was asked. " +
-      "Respond with a JSON object with these fields: " +
-      '{ "evaluation": { "grade": "correct|partial|incorrect", "feedback": "examiner-style feedback with FAA references" }, ' +
+      "You are grading a student's answer to a specific oral exam question. " +
+
+      // Step 1: anchor to the exact question asked
+      "STEP 1 — IDENTIFY WHAT WAS ASKED. " +
+      "The exact question the student was asked is in the 'originalQuestion' field. " +
+      "Before doing anything else, extract the specific scope of that question: " +
+      "What single topic does it ask about? What would a complete answer need to address? " +
+      "Write this scope down mentally — it is the ONLY thing the student is being graded on. " +
+
+      // Step 2: apply scenario context
+      "STEP 2 — APPLY SCENARIO CONTEXT. " +
+      "The scenario in 'originalScenario' established the conditions the student was placed in. " +
+      "The student's answer must be correct for THOSE conditions — not for some other situation. " +
+      "If the scenario places the student in cruise flight, do not penalize them for not discussing takeoff factors. " +
+      "If the scenario specifies a particular aircraft type, altitude, weather, or phase of flight, " +
+      "treat those as fixed constraints and grade within them. " +
+      "If there is a clear contradiction between scenario and question, note it briefly in feedback " +
+      "but do not penalize the student — grade against the question as asked. " +
+
+      // Step 3: grade narrowly
+      "STEP 3 — GRADE NARROWLY. " +
+      "A complete answer is one that correctly addresses what the question asked within the scenario context. " +
+      "Do NOT penalize for omitting information that was not asked for. " +
+      "Do NOT penalize for not addressing factors that the scenario did not raise. " +
+      "Do NOT upgrade a grade because the student said other correct things unrelated to the question. " +
+      "If groundingNotes are provided, treat them as authoritative FAA facts — use them to verify specific claims. " +
+      "CRITICAL: if any part of the answer contains a specific factual error (wrong direction, wrong number, " +
+      "wrong procedure step, wrong control input), grade 'partial' or 'incorrect' regardless of what else was correct. " +
+
+      // Grades
+      "Use exactly these grades: " +
+      "'correct' — answer is factually accurate and responsive to what was asked, even if not exhaustive; " +
+      "'partial' — got the core idea right but missed a meaningful required element, or contained a minor factual error; " +
+      "'incorrect' — clear factual error that would fail a checkride, or completely missed what was asked. " +
+
+      // Output
+      "Respond with a JSON object: " +
+      '{ "evaluation": { "grade": "correct|partial|incorrect", "feedback": "..." }, ' +
       '"nextAction": "askNextQuestion | moveToNextTask | moveToNextArea | sessionComplete" }. ' +
-      "Address the student directly in second person (e.g. 'You correctly identified...', 'You were close but missed...', 'You missed...'). " +
-      "Be concise but cite specific FAA references where the student was incomplete or incorrect. " +
+      "In the feedback: address the student in second person ('You correctly...', 'You missed...'), " +
+      "be concise, cite FAA references only where the student was wrong or incomplete, " +
+      "and do NOT reference information from outside the question and scenario. " +
       "Do NOT include any text outside the JSON object."
   });
 }
