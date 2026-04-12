@@ -37,6 +37,26 @@ let sessionToken = "";
 let gradeChallenges = [];
 
 // -----------------------------------------------------------------------
+// RECENT QUESTION TRACKING — VARIETY ENFORCEMENT
+// -----------------------------------------------------------------------
+// GPT has no memory between calls. Without help, it tends to ask the same
+// concept (e.g., "how do you establish slow flight") with only superficial
+// scenario variation. To prevent this we maintain a short rolling log of
+// recent question topics per area and inject them into every prompt so the
+// AI explicitly knows what it already asked.
+//
+// recentQuestionsByArea: { [areaId]: string[] }
+//   Each entry is a short topic summary extracted from the LLM's own question
+//   text (first 120 chars — enough for the AI to recognize the concept).
+//
+// RECENT_QUESTION_MEMORY: how many recent questions to include in the prompt.
+//   Too few = still repeats; too many = prompt gets long and AI gets confused.
+//   5 is a good default for a 9-question session.
+// -----------------------------------------------------------------------
+const RECENT_QUESTION_MEMORY = 5;
+let recentQuestionsByArea = {};
+
+// -----------------------------------------------------------------------
 // FULL EXAM MODE — PER-AREA QUESTION LIMITS
 // -----------------------------------------------------------------------
 // In full exam mode, the exam works in two rounds:
@@ -422,6 +442,17 @@ async function askNextQuestion() {
 
   currentLLMData = llmData;
 
+  // Record this question topic so the next prompt can avoid repeating it
+  if (llmData.question) {
+    const area = config.areasOfOperation[currentAreaIndex];
+    if (area) {
+      if (!recentQuestionsByArea[area.id]) recentQuestionsByArea[area.id] = [];
+      const recent = recentQuestionsByArea[area.id];
+      recent.push(llmData.question.slice(0, 120));
+      if (recent.length > RECENT_QUESTION_MEMORY) recent.shift();
+    }
+  }
+
   document.getElementById("scenario").textContent = llmData.scenario || "";
   document.getElementById("question").textContent = llmData.question || "";
 }
@@ -464,6 +495,9 @@ function moveToNextArea() {
   currentAreaIndex++;
   currentTaskIndex = 0;
   fullExamAreaQuestionCount = 0;  // reset counter for the new area
+  // Recent question memory is per-area — no need to carry it forward
+  // (each area starts fresh; old area's history stays in case of extension)
+  recentQuestionsByArea[config.areasOfOperation[currentAreaIndex - 1]?.id] = [];
 
   // Skip areas that have no applicable tasks for the selected variant
   while (
@@ -647,6 +681,14 @@ async function buildPrompt(area, task) {
         : "This is a BASE ROUND — focus on required tasks only.\n");
   }
 
+  // Build the recent-questions list for this area.
+  // Injected into the prompt so the AI explicitly avoids repeating concepts.
+  const recent = recentQuestionsByArea[area.id] || [];
+  const recentContext = recent.length > 0
+    ? "Questions already asked this session (DO NOT repeat these concepts or close variations):\n" +
+      recent.map((q, i) => `  ${i + 1}. ${q}`).join("\n")
+    : "";
+
   return template
     .replace("{{certificate}}", config.certificate)
     .replace("{{areaTitle}}", area.title)
@@ -660,6 +702,7 @@ async function buildPrompt(area, task) {
     .replace("{{FARs}}", config.references.FARs)
     .replace("{{AFH}}", config.references.AFH || "")
     .replace("{{variantContext}}", variantContext)
+    .replace("{{recentContext}}", recentContext)
     .replace("{{localText}}", localTextCache);
 }
 

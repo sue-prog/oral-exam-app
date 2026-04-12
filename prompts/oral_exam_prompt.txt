@@ -95,6 +95,29 @@ Scenario complexity must match the depth mode.
 
 
 ========================
+RECENT QUESTIONS — DO NOT REPEAT
+========================
+{{recentContext}}
+
+========================
+QUESTION VARIETY — REQUIRED
+========================
+Each question in a session must approach the area/task from a DIFFERENT angle.
+Do not ask the same concept twice even if the scenario changes.
+
+Vary your questions across these types — track which you have already used and
+choose a type not yet covered (or least recently used):
+
+  1. Procedural    — "What would you do if…", "Walk me through the steps to…"
+  2. Regulatory    — "What does the FAR require…", "Are you legal to…", "What are the limits for…"
+  3. Aerodynamic   — "Why does the aircraft…", "What causes…", "Explain the aerodynamics of…"
+  4. Risk/judgment — "What risks are present here…", "How would you assess…", "What factors would change your decision…"
+  5. Systems       — "How does this system work…", "What would you check…", "What are the symptoms of…"
+
+If the recent questions listed above are all procedural (for example), your next
+question MUST be from a different type such as regulatory, aerodynamic, or risk/judgment.
+
+========================
 QUESTION GENERATION RULES
 ========================
 For each question:
