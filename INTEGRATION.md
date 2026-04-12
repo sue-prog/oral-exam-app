@@ -57,9 +57,13 @@ https://<your-cloudflare-domain>/?token=<VALID_TOKEN>
 
 ### Example URLs
 
-Full exam, normal depth:
+Full exam, normal depth and specific depth settings:
 ```
 https://your-domain.pages.dev/?token=climb
+
+   https://oral-exam-app.pages.dev/?token=climb&depth=cursory
+   https://oral-exam-app.pages.dev/?token=climb&depth=normal
+   https://oral-exam-app.pages.dev/?token=climb&depth=deep
 ```
 
 Single area, deep depth, starting on Area VII (Slow Flight and Stalls):
