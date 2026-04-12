@@ -1,0 +1,152 @@
+{
+  "certificate": "Commercial Pilot",
+  "rating": "Airplane Multiengine Land",
+
+  "acsUrl": "https://www.faa.gov/training_testing/testing/acs/commercial_pilot_acs.pdf",
+
+  "references": {
+    "PHAK": "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/phak.pdf",
+    "AIM": "https://www.faa.gov/air_traffic/publications/atpubs/aim_html/",
+    "FARs": "https://www.ecfr.gov/current/title-14",
+    "AFH": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/airplane_handbook",
+    "MEH": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/airplane_handbook/media/14_afh_ch13.pdf"
+  },
+
+  "localPdfs": [],
+  "localText": [],
+
+  "areasOfOperation": [
+    {
+      "id": "I",
+      "title": "Preflight Preparation",
+      "groundingNotes": "Multiengine performance planning is more complex than single-engine. Key speeds to know from POH: Vmc (minimum control speed with critical engine inoperative) — red radial on airspeed indicator; Vyse (best rate of climb, one engine inoperative) — blue radial ('blue line'); Vxse (best angle of climb, one engine inoperative). Critical engine: in most US-certificated twins with both engines turning clockwise (from pilot view), the LEFT engine is critical because its P-factor (descending blade on right) produces a longer moment arm, creating more yaw when failed. Vmc is established with: critical engine inoperative and windmilling, max takeoff power on operative engine, most unfavorable CG (aft), landing gear up, flaps in takeoff position, bank up to 5° into operative engine. Vmc decreases with altitude (density altitude) because the operative engine produces less thrust. At or above density altitude where full power produces same thrust as Vmc conditions, Vmc = Vs (stall speed). Above this altitude a Vmc demonstration is not possible.",
+      "tasks": [
+        { "id": "A", "title": "Pilot Qualifications",                           "variants": { "full": "required", "additional": "optional" } },
+        { "id": "B", "title": "Airworthiness Requirements",                     "variants": { "full": "required", "additional": "optional" } },
+        { "id": "C", "title": "Weather Information",                            "variants": { "full": "required", "additional": "optional" } },
+        { "id": "D", "title": "Cross-Country Flight Planning",                  "variants": { "full": "required", "additional": "optional" } },
+        { "id": "E", "title": "National Airspace System",                       "variants": { "full": "required", "additional": "optional" } },
+        { "id": "F", "title": "Performance and Limitations",                    "variants": { "full": "required", "additional": "required" } },
+        { "id": "G", "title": "Operation of Systems",                           "variants": { "full": "required", "additional": "required" } },
+        { "id": "H", "title": "Human Factors",                                  "variants": { "full": "required", "additional": "optional" } }
+      ]
+    },
+    {
+      "id": "II",
+      "title": "Preflight Procedures",
+      "groundingNotes": "Multiengine preflight includes all single-engine checks plus: both engines inspected independently, fuel and oil levels verified for each engine, propeller condition (both), fuel selector positions, crossfeed valve check, both magneto systems, both fuel pumps (electric boost pumps on each engine), engine controls free and correct for both, feathering system if equipped. GUMP check before landing: Gas (tanks selected, boost pumps on), Undercarriage (down and locked), Mixture (rich for approach), Props (forward to high RPM). Verify gear-down indication: three green lights.",
+      "tasks": [
+        { "id": "A", "title": "Preflight Assessment",                           "variants": { "full": "required", "additional": "required" } },
+        { "id": "B", "title": "Flight Deck Management",                         "variants": { "full": "required", "additional": "optional" } },
+        { "id": "C", "title": "Engine Starting",                                "variants": { "full": "required", "additional": "required" } },
+        { "id": "D", "title": "Taxiing",                                        "variants": { "full": "required", "additional": "optional" } },
+        { "id": "E", "title": "Before Takeoff Check",                           "variants": { "full": "required", "additional": "required" } }
+      ]
+    },
+    {
+      "id": "III",
+      "title": "Airport and Seaplane Base Operations",
+      "groundingNotes": "TODO: Same core content as Commercial ASEL. For AMEL: additional consideration of aircraft size/weight in pattern planning, wake turbulence from heavier aircraft, and runway length requirements with OEI performance in mind.",
+      "tasks": [
+        { "id": "A", "title": "Communications, Light Signals, and Runway Lighting Systems", "variants": { "full": "required", "additional": "optional" } },
+        { "id": "B", "title": "Traffic Patterns",                                           "variants": { "full": "required", "additional": "optional" } }
+      ]
+    },
+    {
+      "id": "IV",
+      "title": "Takeoffs, Landings, and Go-Arounds",
+      "groundingNotes": "Multiengine takeoff: accelerate-stop distance is critical — know balanced field length from POH. Decision point: if engine fails before rotation, abort; if after rotation and above Vmc, continue (if performance permits). Normal two-engine approach: GUMP check on final, stabilized approach. Go-around with both engines: full power both engines, positive climb established, gear up, flaps retracted incrementally. Engine failure on go-around (most critical scenario): identify failed engine, verify Vmc, maintain directional control with rudder, do not reduce power on good engine, climb at Vyse. Gear-up landing procedure (if gear fails to extend): follow POH emergency procedure — attempt manual extension, squawk 7700, notify tower, plan for runway foam if available.",
+      "tasks": [
+        { "id": "A", "title": "Normal Takeoff and Climb",                           "variants": { "full": "required", "additional": "required" } },
+        { "id": "B", "title": "Normal Approach and Landing",                        "variants": { "full": "required", "additional": "required" } },
+        { "id": "C", "title": "Soft-Field Takeoff and Climb",                       "variants": { "full": "required", "additional": "optional" } },
+        { "id": "D", "title": "Soft-Field Approach and Landing",                    "variants": { "full": "required", "additional": "optional" } },
+        { "id": "E", "title": "Short-Field Takeoff and Maximum Performance Climb",  "variants": { "full": "required", "additional": "required" } },
+        { "id": "F", "title": "Short-Field Approach and Landing",                   "variants": { "full": "required", "additional": "required" } },
+        { "id": "G", "title": "Power-Off 180° Accuracy Approach and Landing",       "variants": { "full": "required", "additional": "optional" } },
+        { "id": "H", "title": "Go-Around / Rejected Landing",                       "variants": { "full": "required", "additional": "required" } }
+      ]
+    },
+    {
+      "id": "V",
+      "title": "Performance Maneuvers",
+      "groundingNotes": "Chandelle and lazy eight standards same as Commercial ASEL. In a multiengine aircraft, the higher power and weight make these maneuvers feel different — students must still meet ACS tolerances. Steep turns: 50° bank for commercial (not 45°), altitude ±100 ft, airspeed ±10 kt, heading ±10° rollout.",
+      "tasks": [
+        { "id": "A", "title": "Steep Turns",  "variants": { "full": "required", "additional": "optional" } },
+        { "id": "B", "title": "Chandelle",    "variants": { "full": "required", "additional": "optional" } },
+        { "id": "C", "title": "Lazy Eight",   "variants": { "full": "required", "additional": "optional" } }
+      ]
+    },
+    {
+      "id": "VI",
+      "title": "Ground Reference Maneuvers",
+      "groundingNotes": "Eights on pylons in a multiengine aircraft: pivotal altitude formula still applies (altitude in ft = GS² ÷ 11.3). Aircraft size and speed make the maneuver more challenging — entry is typically at a higher airspeed than single-engine aircraft.",
+      "tasks": [
+        { "id": "A", "title": "Eights on Pylons", "variants": { "full": "required", "additional": "optional" } }
+      ]
+    },
+    {
+      "id": "VII",
+      "title": "Navigation",
+      "groundingNotes": "TODO: Same core nav content as Commercial ASEL. For AMEL: multiengine aircraft typically have more sophisticated avionics; emphasis on managing two engines' fuel systems during long-distance navigation (crossfeed procedures, fuel balance monitoring).",
+      "tasks": [
+        { "id": "A", "title": "Pilotage and Dead Reckoning",           "variants": { "full": "required", "additional": "optional" } },
+        { "id": "B", "title": "Navigation Systems and Radar Services", "variants": { "full": "required", "additional": "optional" } },
+        { "id": "C", "title": "Diversion",                            "variants": { "full": "required", "additional": "optional" } },
+        { "id": "D", "title": "Lost Procedures",                      "variants": { "full": "required", "additional": "optional" } }
+      ]
+    },
+    {
+      "id": "VIII",
+      "title": "Slow Flight and Stalls",
+      "groundingNotes": "Vmc demonstration (multiengine-specific): performed at safe altitude (minimum 3000 ft AGL recommended). Reduce speed to 1 kt above Vmc, then slowly reduce power on critical (left) engine to idle. Note the airspeed at which directional control can no longer be maintained. Recovery: reduce power on operative engine, lower nose, then add power as airspeed permits. Do NOT allow actual Vmc loss — recover at first sign of directional loss of control. Vmc vs. stall: if stall speed (Vs) is reached before Vmc, aircraft will stall before losing directional control — occurs at high density altitudes. Engine-out stalls: far more dangerous than single-engine stalls due to asymmetric thrust aggravating roll/yaw; recover immediately at first buffet.",
+      "tasks": [
+        { "id": "A", "title": "Maneuvering During Slow Flight",    "variants": { "full": "required", "additional": "optional" } },
+        { "id": "B", "title": "Power-Off Stalls",                  "variants": { "full": "required", "additional": "optional" } },
+        { "id": "C", "title": "Power-On Stalls",                   "variants": { "full": "required", "additional": "optional" } },
+        { "id": "D", "title": "Vmc Demonstration",                 "variants": { "full": "required", "additional": "required" } },
+        { "id": "E", "title": "Accelerated Stalls",                "variants": { "full": "required", "additional": "optional" } },
+        { "id": "F", "title": "Spin Awareness",                    "variants": { "full": "required", "additional": "optional" } }
+      ]
+    },
+    {
+      "id": "IX",
+      "title": "High-Altitude Operations",
+      "groundingNotes": "TODO: Same as Commercial ASEL high-altitude content. Multiengine aircraft more likely to operate at altitudes requiring supplemental O2 or pressurization. Refer to Commercial ASEL config for full grounding notes.",
+      "tasks": [
+        { "id": "A", "title": "Supplemental Oxygen", "variants": { "full": "required", "additional": "optional" } },
+        { "id": "B", "title": "Pressurization",      "variants": { "full": "required", "additional": "optional" } }
+      ]
+    },
+    {
+      "id": "X",
+      "title": "Emergency Operations",
+      "groundingNotes": "Engine failure during takeoff (below Vmc): close both throttles, abort. Engine failure during takeoff (above Vmc, before gear up): maintain Vmc+, identify/verify/feather failed engine, continue climb at Vyse, clean up aircraft. Engine failure in cruise: IDENTIFY (foot identifies dead engine — 'dead foot, dead engine'), VERIFY (throttle of suspected dead engine back to confirm), FEATHER (mixture to cutoff then prop to feather position). Memory aid: Identify, Verify, Feather — then restart checklist or emergency landing. Propeller feathering: blades rotated parallel to airflow to eliminate drag. If prop cannot be feathered (windmilling), drag is severe — Vyse performance significantly degraded. Engine-out approach and landing: plan a longer, wider pattern due to reduced go-around capability; do not extend flaps until landing is assured; be prepared that a go-around with full flaps on one engine may not be possible. Gear malfunction: follow POH emergency procedure for manual gear extension; if gear still unsafe, follow gear-up landing procedure.",
+      "tasks": [
+        { "id": "A", "title": "Emergency Descent",                                        "variants": { "full": "required", "additional": "required" } },
+        { "id": "B", "title": "Engine Failure During Takeoff (before and after liftoff)", "variants": { "full": "required", "additional": "required" } },
+        { "id": "C", "title": "Engine Failure En Route",                                  "variants": { "full": "required", "additional": "required" } },
+        { "id": "D", "title": "Engine-Out Approach and Landing",                          "variants": { "full": "required", "additional": "required" } },
+        { "id": "E", "title": "Systems and Equipment Malfunctions",                       "variants": { "full": "required", "additional": "required" } },
+        { "id": "F", "title": "Emergency Equipment and Survival Gear",                    "variants": { "full": "required", "additional": "optional" } },
+        { "id": "G", "title": "Aeromedical Factors and Physiology",                       "variants": { "full": "required", "additional": "optional" } }
+      ]
+    },
+    {
+      "id": "XI",
+      "title": "Night Operations",
+      "groundingNotes": "TODO: Same as Commercial ASEL night content. Multiengine night operations add the complexity of engine failure at night — landing area selection is far more difficult without terrain visibility.",
+      "tasks": [
+        { "id": "A", "title": "Night Preparation", "variants": { "full": "required", "additional": "optional" } }
+      ]
+    },
+    {
+      "id": "XII",
+      "title": "Postflight Procedures",
+      "groundingNotes": "Shutdown both engines per POH. Verify all fuel selectors, crossfeed, boost pumps, and electrical systems are in correct position for shutdown. Log discrepancies for both engines independently. Fuel balance check — note any imbalance for investigation. Secure props, chocks, and tie-downs appropriate for aircraft weight.",
+      "tasks": [
+        { "id": "A", "title": "After Landing, Parking, and Securing", "variants": { "full": "required", "additional": "required" } }
+      ]
+    }
+  ]
+}

@@ -12,6 +12,16 @@ Aircraft (optional): {{aircraft}}
 If aircraft-specific data is not provided or no aircraft text is included, generate only generic questions that apply to any training aircraft.
 
 ========================
+VARIANT / TASK EMPHASIS
+========================
+{{variantContext}}
+If variant context is provided above, follow it strictly:
+- In a BASE ROUND, only ask about REQUIRED tasks. Do not introduce optional tasks.
+- In an EXTENSION ROUND, you may cover both required and optional tasks, but weight
+  questions toward areas where the student previously showed weakness.
+- If no variant context is present, treat all tasks in the area as equally applicable.
+
+========================
 FAA REFERENCES
 ========================
 ACS: {{acsUrl}}

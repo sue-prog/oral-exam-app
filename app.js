@@ -77,6 +77,57 @@ let fullExamAreaResults = {};
 // Set is populated after round 1; entries removed as student uses or declines extensions.
 let fullExamExtensionAvailable = new Set();
 
+// -----------------------------------------------------------------------
+// VARIANT FILTERING
+// -----------------------------------------------------------------------
+// Some ACS documents cover multiple rating situations (e.g., "full" Commercial
+// AMEL vs. "additional" AMEL onto an existing Commercial ASEL). Some tasks only
+// apply to one situation. The ?variant= URL param selects which applies.
+//
+// Each task in a config can carry an optional "variants" field:
+//   "variants": { "full": "required", "additional": "optional" }
+//
+// Values:
+//   "required" — this task must appear in the base question round
+//   "optional" — this task is available in the extension round only
+//   key absent  — this task does not apply to this variant at all
+//
+// If a task has no "variants" field at all, it applies to every variant
+// as "required" (backward compatible with configs written before this feature).
+//
+// If no ?variant= param is passed, all tasks are treated as applicable.
+//
+// currentAreaTasks: the filtered task list for the current area + variant + round.
+// Rebuilt whenever we enter a new area or switch between base and extension rounds.
+// All code that previously used area.tasks[currentTaskIndex] now uses currentAreaTasks.
+// -----------------------------------------------------------------------
+let activeVariant = "";         // from ?variant= param; empty = no filtering
+let currentAreaTasks = [];      // filtered tasks for current area/variant/round
+
+// buildAreaTaskList(area, variant, isExtensionRound):
+//   Returns the applicable tasks for a given area, variant, and round.
+//   isExtensionRound = false → base round: "required" tasks only
+//   isExtensionRound = true  → extension round: all applicable tasks (required + optional)
+function buildAreaTaskList(area, variant, isExtensionRound) {
+  if (!area.tasks || area.tasks.length === 0) return [];
+  if (!variant) return area.tasks;  // no variant = all tasks
+
+  return area.tasks.filter(task => {
+    if (!task.variants) return true;                        // no variants field = always included
+    const v = task.variants[variant];
+    if (!v) return false;                                   // variant key absent = not applicable
+    if (!isExtensionRound) return v === "required";         // base round: required only
+    return true;                                            // extension round: required + optional
+  });
+}
+
+// hasApplicableTasks(area, variant): true if this area has at least one applicable task.
+// Used to skip areas with no tasks for the selected variant.
+function hasApplicableTasks(area, variant) {
+  return buildAreaTaskList(area, variant, false).length > 0 ||
+         buildAreaTaskList(area, variant, true).length > 0;
+}
+
 // --- Single-area mode state ---
 let isSingleAreaMode = false;
 let singleAreaQuestionCount = 0;
@@ -124,6 +175,12 @@ async function init() {
   isSingleAreaMode = params.get("mode") === "single";
   returnUrl = params.get("returnUrl") || null;
 
+  // --- Variant selection ---
+  // ?variant= selects which subset of tasks applies (e.g., "full" vs "additional").
+  // Sanitized the same way as rating — only safe filename chars allowed.
+  // If omitted, no variant filtering is applied.
+  activeVariant = (params.get("variant") || "").replace(/[^a-z0-9_-]/gi, "");
+
   // --- Single-area question limit ---
   // ?questions=N sets how many questions before grading. Default: 9.
   // The extension (offered after a failed base round) is ceil(N/3).
@@ -166,6 +223,22 @@ async function init() {
         currentAreaIndex = idx;
       }
     }
+
+    // Skip areas that have no applicable tasks for the selected variant.
+    // Advance currentAreaIndex until we land on an applicable area.
+    while (
+      currentAreaIndex < config.areasOfOperation.length &&
+      !hasApplicableTasks(config.areasOfOperation[currentAreaIndex], activeVariant)
+    ) {
+      currentAreaIndex++;
+    }
+
+    // Build the initial task list for the starting area
+    currentAreaTasks = buildAreaTaskList(
+      config.areasOfOperation[currentAreaIndex],
+      activeVariant,
+      false  // start in base round (required tasks only)
+    );
 
     showScreen("exam");
     updateProgressUI();
@@ -288,7 +361,9 @@ function updateProgressUI() {
   const area = config.areasOfOperation[currentAreaIndex];
   if (!area) return;
 
-  const task = area.tasks?.[currentTaskIndex];
+  // Use the filtered task list (currentAreaTasks) so the label reflects
+  // only applicable tasks, not the raw config array.
+  const task = currentAreaTasks[currentTaskIndex] ?? null;
   const modeLabel = isAdaptiveMode ? " — Review" : "";
 
   document.getElementById("progress-label").textContent =
@@ -308,7 +383,8 @@ async function askNextQuestion() {
   if (!isSingleAreaMode) fullExamAreaQuestionCount++;
 
   const area = config.areasOfOperation[currentAreaIndex];
-  const task = area?.tasks?.[currentTaskIndex] ?? null;
+  // Use currentAreaTasks (variant-filtered) rather than area.tasks directly
+  const task = currentAreaTasks[currentTaskIndex] ?? null;
 
   // Reset UI for new question
   document.getElementById("answer").value = "";
@@ -351,9 +427,9 @@ async function askNextQuestion() {
 }
 
 function moveToNextTask() {
-  const area = config.areasOfOperation[currentAreaIndex];
   currentTaskIndex++;
-  if (currentTaskIndex >= (area.tasks?.length ?? 0)) {
+  // Use currentAreaTasks (variant-filtered) to know when we've exhausted the area
+  if (currentTaskIndex >= currentAreaTasks.length) {
     moveToNextArea();
   } else {
     askNextQuestion();
@@ -389,10 +465,24 @@ function moveToNextArea() {
   currentTaskIndex = 0;
   fullExamAreaQuestionCount = 0;  // reset counter for the new area
 
+  // Skip areas that have no applicable tasks for the selected variant
+  while (
+    currentAreaIndex < config.areasOfOperation.length &&
+    !hasApplicableTasks(config.areasOfOperation[currentAreaIndex], activeVariant)
+  ) {
+    currentAreaIndex++;
+  }
+
   if (currentAreaIndex >= config.areasOfOperation.length) {
     // All areas done — move to extension/completion phase
     startExtensionPhase();
   } else {
+    // Rebuild task list for the new area (base round = required tasks only)
+    currentAreaTasks = buildAreaTaskList(
+      config.areasOfOperation[currentAreaIndex],
+      activeVariant,
+      false
+    );
     askNextQuestion();
   }
 }
@@ -450,6 +540,14 @@ function startAreaExtension(areaId) {
   currentAreaIndex = idx;
   currentTaskIndex = 0;
   fullExamAreaQuestionCount = 0;
+
+  // Extension round includes all applicable tasks (required + optional) —
+  // this is where "optional" variant tasks finally get covered.
+  currentAreaTasks = buildAreaTaskList(
+    config.areasOfOperation[currentAreaIndex],
+    activeVariant,
+    true  // isExtensionRound = true
+  );
 
   // Track that this area is in extension mode so handleSubmit knows when to stop
   currentAreaInExtension = true;
@@ -526,6 +624,29 @@ function showCompletion() {
 async function buildPrompt(area, task) {
   const template = await fetch("prompts/oral_exam_prompt.txt").then(r => r.text());
 
+  // Build variant context string for the prompt.
+  // Tells the AI which tasks are required for this variant (if any), so it can
+  // weight questions toward mandatory content in base rounds and include optional
+  // content in extension rounds.
+  let variantContext = "";
+  if (activeVariant) {
+    const requiredTasks = (area.tasks || [])
+      .filter(t => !t.variants || t.variants[activeVariant] === "required")
+      .map(t => `${t.id}: ${t.title}`)
+      .join(", ");
+    const optionalTasks = (area.tasks || [])
+      .filter(t => t.variants && t.variants[activeVariant] === "optional")
+      .map(t => `${t.id}: ${t.title}`)
+      .join(", ");
+    variantContext =
+      `Rating variant: ${activeVariant}\n` +
+      (requiredTasks ? `Required tasks for this variant: ${requiredTasks}\n` : "") +
+      (optionalTasks ? `Optional tasks for this variant (extension round only): ${optionalTasks}\n` : "") +
+      (currentAreaInExtension
+        ? "This is an EXTENSION ROUND — cover both required and optional tasks.\n"
+        : "This is a BASE ROUND — focus on required tasks only.\n");
+  }
+
   return template
     .replace("{{certificate}}", config.certificate)
     .replace("{{areaTitle}}", area.title)
@@ -538,6 +659,7 @@ async function buildPrompt(area, task) {
     .replace("{{AIM}}", config.references.AIM)
     .replace("{{FARs}}", config.references.FARs)
     .replace("{{AFH}}", config.references.AFH || "")
+    .replace("{{variantContext}}", variantContext)
     .replace("{{localText}}", localTextCache);
 }
 
@@ -590,7 +712,7 @@ async function handleFlag() {
   btn.textContent = "Flagging…";
 
   const area = config.areasOfOperation[currentAreaIndex];
-  const task = area?.tasks?.[currentTaskIndex] ?? null;
+  const task = currentAreaTasks[currentTaskIndex] ?? null;
   const feedbackCard = document.getElementById("feedback-card");
 
   const payload = {
@@ -624,7 +746,7 @@ function handleChallenge() {
   if (btn.dataset.challenged === "true") return;  // already challenged this question
 
   const area = config.areasOfOperation[currentAreaIndex];
-  const task = area?.tasks?.[currentTaskIndex] ?? null;
+  const task = currentAreaTasks[currentTaskIndex] ?? null;
   const feedbackCard = document.getElementById("feedback-card");
   const grade = feedbackCard.classList.contains("correct") ? "correct"
               : feedbackCard.classList.contains("partial") ? "partial" : "incorrect";
@@ -799,6 +921,12 @@ function showSingleAreaResult() {
 function handleSingleAreaMore() {
   singleAreaExtended = true;
   currentTaskIndex = 0;
+  // Extension round: expand to all applicable tasks (required + optional)
+  currentAreaTasks = buildAreaTaskList(
+    config.areasOfOperation[currentAreaIndex],
+    activeVariant,
+    true  // isExtensionRound = true
+  );
   showScreen("exam");
   askNextQuestion();
 }
