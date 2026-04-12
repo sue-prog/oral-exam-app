@@ -915,6 +915,11 @@ function buildEvalPrompt(originalResponse, studentAnswer, area, task) {
     groundingNotes: groundingNotes,
     instruction:
       "Evaluate the student's answer using FAA ACS standards. " +
+      "SCENARIO CONTEXT: The student was presented with the scenario in 'originalScenario' and asked the question in 'originalQuestion'. " +
+      "Read both carefully before grading. The student's answer must be evaluated in the context of the scenario — " +
+      "if the scenario places them on the ground and the question asks about a ground procedure, do not penalize them for not addressing in-flight factors. " +
+      "If there is a contradiction between the scenario and the question (e.g., the question asks about something the scenario does not set up), " +
+      "grade the student on what the question asked and note the inconsistency in your feedback without penalizing the student for it. " +
       "If groundingNotes are provided, treat them as authoritative reference facts for this area and use them to verify the student's answer. " +
       "Grade based strictly on what the question actually asked — do not penalize for omitting information not required by the question. " +
       "CRITICAL GRADING RULE: If any part of the student's answer contains a specific factual error — such as a wrong direction, wrong number, wrong procedure step, or wrong control input — the answer MUST be graded 'partial' or 'incorrect' regardless of how much else was correct. A mostly correct answer with one specific wrong fact is never 'correct'. " +

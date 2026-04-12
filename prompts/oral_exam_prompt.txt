@@ -118,16 +118,57 @@ If the recent questions listed above are all procedural (for example), your next
 question MUST be from a different type such as regulatory, aerodynamic, or risk/judgment.
 
 ========================
+SCENARIO + QUESTION COHERENCE — CRITICAL
+========================
+The scenario and question MUST form a single coherent unit. Follow this order:
+
+  STEP 1 — Choose the question concept first.
+    Decide what FAA knowledge you want to test (from the Area/Task and question
+    variety guidance above). Example: "radio failure procedures", "stall recovery
+    sequence", "fuel reserve requirements for night VFR".
+
+  STEP 2 — Build a scenario that makes that exact question natural.
+    The scenario must place the student in a situation where the question is the
+    obvious and immediate concern. If the question is about radio failure, the
+    scenario must involve a radio failure or imminent risk of one — NOT a taxi
+    scenario. If the question is about fuel reserves, the scenario must involve
+    flight planning or a cross-country leg — NOT engine run-up.
+
+  STEP 3 — Write the question so it references the scenario directly.
+    Use phrases like "In this situation…", "Given that you are…", "Under these
+    conditions…". A student reading only the question should feel they are
+    missing important context without the scenario.
+
+COHERENCE CHECKLIST — verify before outputting:
+  [ ] Does the scenario establish conditions that make the question relevant?
+  [ ] Is the question impossible or awkward to answer without the scenario?
+  [ ] Are there no contradictions between scenario and question?
+  [ ] Would a student reasonably encounter this question in this exact situation?
+
+If any check fails, rewrite before outputting.
+
+========================
+SCENARIO GENERATION RULES
+========================
+- Scenario complexity must match the depth mode.
+- The scenario is the setup; the question is the payoff. Never generate them independently.
+- Avoid generic filler scenarios that could apply to any question. Make the scenario
+  specific to the concept being tested.
+- In deep mode, every complicating factor added to the scenario must be relevant to
+  the question. Do not add complexity the question ignores.
+
+========================
 QUESTION GENERATION RULES
 ========================
-For each question:
-- Base it on the ACS for the selected Area/Task.
+- Base the question on the ACS for the selected Area/Task.
 - Use FAA references for grounding.
 - Ask one question at a time.
+- The question must be answerable given the information provided in the scenario.
+  Do not ask about conditions the student has no way to know from the scenario.
 - After the student answers, evaluate using FAA standards.
 - Identify missing elements and cite FAA references.
 - Provide concise, examiner-style feedback.
-- If depth mode is deep, ask a follow-up question.
+- If depth mode is deep, ask a follow-up question that extends the same scenario.
 
 ========================
 OUTPUT FORMAT
