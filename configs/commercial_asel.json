@@ -1,0 +1,148 @@
+{
+  "certificate": "Commercial Pilot",
+  "rating": "Airplane Single-Engine Land",
+
+  "acsUrl": "https://www.faa.gov/training_testing/testing/acs/commercial_pilot_acs.pdf",
+
+  "references": {
+    "PHAK": "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/phak.pdf",
+    "AIM": "https://www.faa.gov/air_traffic/publications/atpubs/aim_html/",
+    "FARs": "https://www.ecfr.gov/current/title-14",
+    "AFH": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/airplane_handbook"
+  },
+
+  "localPdfs": [],
+  "localText": [],
+
+  "areasOfOperation": [
+    {
+      "id": "I",
+      "title": "Preflight Preparation",
+      "groundingNotes": "Commercial pilot privileges (14 CFR 61.133): may act as PIC of aircraft for compensation or hire; may act as SIC. Limitations: cannot act as PIC of aircraft for compensation or hire carrying passengers or property on cross-country flights over 50 NM or at night unless instrument rated (14 CFR 61.133(b)). Commercial certificate requires 250 hours total time including: 100 hours in powered aircraft, 100 hours PIC, 50 hours XC PIC, 10 hours instrument (5 in airplanes), 10 hours in complex/TAA aircraft. Complex aircraft: retractable gear, flaps, and controllable-pitch propeller. High-performance aircraft: more than 200 HP. Commercial pilot must hold at least a third-class medical. Drug and alcohol regulations: 14 CFR 91.17 — 8 hours bottle-to-throttle, 0.04 BAC limit.",
+      "tasks": [
+        { "id": "A", "title": "Pilot Qualifications" },
+        { "id": "B", "title": "Airworthiness Requirements" },
+        { "id": "C", "title": "Weather Information" },
+        { "id": "D", "title": "Cross-Country Flight Planning" },
+        { "id": "E", "title": "National Airspace System" },
+        { "id": "F", "title": "Performance and Limitations" },
+        { "id": "G", "title": "Operation of Systems" },
+        { "id": "H", "title": "Human Factors" }
+      ]
+    },
+    {
+      "id": "II",
+      "title": "Preflight Procedures",
+      "groundingNotes": "TODO: Add grounding notes — retractable gear pre-landing check (GUMP: Gas, Undercarriage, Mixture, Propeller), complex aircraft systems (constant-speed prop operation, gear system), fuel system (boost pump usage, cross-feed), preflight for high-performance aircraft.",
+      "tasks": [
+        { "id": "A", "title": "Preflight Assessment" },
+        { "id": "B", "title": "Flight Deck Management" },
+        { "id": "C", "title": "Engine Starting" },
+        { "id": "D", "title": "Taxiing" },
+        { "id": "E", "title": "Before Takeoff Check" }
+      ]
+    },
+    {
+      "id": "III",
+      "title": "Airport and Seaplane Base Operations",
+      "groundingNotes": "TODO: Add grounding notes — same as Private for traffic patterns and communications, with additional focus on wake turbulence avoidance (commercial pilots often operate heavier aircraft), runway incursion avoidance procedures, and complex airport operations.",
+      "tasks": [
+        { "id": "A", "title": "Communications, Light Signals, and Runway Lighting Systems" },
+        { "id": "B", "title": "Traffic Patterns" }
+      ]
+    },
+    {
+      "id": "IV",
+      "title": "Takeoffs, Landings, and Go-Arounds",
+      "groundingNotes": "TODO: Add grounding notes — commercial standards are tighter than Private: short-field touchdown within 200 ft of aiming point (vs 400 ft Private), precision approaches. Power-off 180° accuracy approach: engine at idle abeam touchdown point, land within 200 ft of a designated point. Retractable gear: verify gear DOWN before landing; GUMP check on final. If gear-up landing occurs — major incident. Normal landing: touch down in first third of runway.",
+      "tasks": [
+        { "id": "A", "title": "Normal Takeoff and Climb" },
+        { "id": "B", "title": "Normal Approach and Landing" },
+        { "id": "C", "title": "Soft-Field Takeoff and Climb" },
+        { "id": "D", "title": "Soft-Field Approach and Landing" },
+        { "id": "E", "title": "Short-Field Takeoff and Maximum Performance Climb" },
+        { "id": "F", "title": "Short-Field Approach and Landing" },
+        { "id": "G", "title": "Power-Off 180° Accuracy Approach and Landing" },
+        { "id": "H", "title": "Go-Around / Rejected Landing" }
+      ]
+    },
+    {
+      "id": "V",
+      "title": "Performance Maneuvers",
+      "groundingNotes": "Chandelle: 180° climbing turn to just above stall speed; maximum pitch attitude reached at 90° of turn and held; rollout completed at 180° exactly as aircraft reaches minimum controllable airspeed. Lazy Eight: symmetrical maneuver across two 180° turns — pitch and bank increase together to 45° bank / maximum pitch at 45° of turn, then decrease to level at 90°, then repeat in opposite direction; altitude, airspeed, and heading should match at each 90° point. Both maneuvers demonstrate mastery of aircraft control at varying airspeeds and demonstrate coordination. Common errors: chandelle — not reaching max pitch at 90°; lazy eight — not coordinating bank and pitch changes together.",
+      "tasks": [
+        { "id": "A", "title": "Steep Turns" },
+        { "id": "B", "title": "Chandelle" },
+        { "id": "C", "title": "Lazy Eight" }
+      ]
+    },
+    {
+      "id": "VI",
+      "title": "Ground Reference Maneuvers",
+      "groundingNotes": "Eights on pylons (pylon eights): altitude selected so pivotal altitude formula is satisfied: altitude (ft) = groundspeed (kt)² ÷ 11.3. At pivotal altitude, the wingtip appears to pivot on the pylon. If pylon appears to move forward, you are too high — descend. If pylon appears to move back, you are too low — climb. Unlike other ground reference maneuvers, bank is NOT adjusted for wind during eights on pylons — altitude is the control. Pylon spacing should allow approximately 3 to 5 seconds of straight flight between pylons.",
+      "tasks": [
+        { "id": "A", "title": "Eights on Pylons" }
+      ]
+    },
+    {
+      "id": "VII",
+      "title": "Navigation",
+      "groundingNotes": "TODO: Add grounding notes — same core nav content as Private, plus commercial emphasis on fuel planning accuracy, alternate planning, diversion procedures, and use of advanced avionics where equipped.",
+      "tasks": [
+        { "id": "A", "title": "Pilotage and Dead Reckoning" },
+        { "id": "B", "title": "Navigation Systems and Radar Services" },
+        { "id": "C", "title": "Diversion" },
+        { "id": "D", "title": "Lost Procedures" }
+      ]
+    },
+    {
+      "id": "VIII",
+      "title": "Slow Flight and Stalls",
+      "groundingNotes": "Left-turning tendencies still apply — RIGHT RUDDER required during slow flight and stalls. Commercial ACS requires stall recognition and recovery before full stall buffet where possible. Accelerated stalls: occur at higher-than-normal airspeed due to increased load factor (e.g., steep turn); load factor at 60° bank = 2G, stall speed increases by 41% (square root of load factor). Secondary stall: occurs when recovery from first stall is premature — student pulls back before airspeed builds sufficiently. Cross-control stall: most dangerous — occurs in low, slow, uncoordinated turn (base-to-final); outside wing stalls first causing snap roll toward ground; avoid by maintaining coordinated flight in the pattern.",
+      "tasks": [
+        { "id": "A", "title": "Maneuvering During Slow Flight" },
+        { "id": "B", "title": "Power-Off Stalls" },
+        { "id": "C", "title": "Power-On Stalls" },
+        { "id": "D", "title": "Accelerated Stalls" },
+        { "id": "E", "title": "Spin Awareness" }
+      ]
+    },
+    {
+      "id": "IX",
+      "title": "High-Altitude Operations",
+      "groundingNotes": "Pressurization systems maintain cabin altitude typically at 6000–8000 ft regardless of flight altitude. Cabin differential pressure: the difference between cabin pressure and outside air pressure. At cabin altitude 8000 ft, oxygen not required but recommended. At cabin altitude above 12,500 ft: crew must use supplemental O2 after 30 minutes. Above 14,000 ft cabin altitude: crew must use O2 continuously. Above 15,000 ft cabin altitude: passengers must be provided O2. Rapid decompression: don oxygen mask immediately (useful consciousness at 30,000 ft is only 15-30 seconds without O2). Emergency descent: deploy oxygen, establish emergency descent, squawk 7700, declare emergency with ATC, plan for landing. High-density altitude effects: reduced engine power, reduced prop efficiency, reduced lift — all performance numbers degrade.",
+      "tasks": [
+        { "id": "A", "title": "Supplemental Oxygen" },
+        { "id": "B", "title": "Pressurization" }
+      ]
+    },
+    {
+      "id": "X",
+      "title": "Emergency Operations",
+      "groundingNotes": "TODO: Add grounding notes — same core emergency procedures as Private plus retractable gear emergencies (manual gear extension procedure, gear-up landing procedure), complex aircraft system failures, emergency descent procedures for commercial operations.",
+      "tasks": [
+        { "id": "A", "title": "Emergency Descent" },
+        { "id": "B", "title": "Emergency Approach and Landing" },
+        { "id": "C", "title": "Systems and Equipment Malfunctions" },
+        { "id": "D", "title": "Emergency Equipment and Survival Gear" },
+        { "id": "E", "title": "Aeromedical Factors and Physiology" }
+      ]
+    },
+    {
+      "id": "XI",
+      "title": "Night Operations",
+      "groundingNotes": "TODO: Add grounding notes — same as Private night content; commercial emphasis on spatial disorientation awareness, night illusions (black hole approach, false horizon, autokinesis), and physiological factors (hypoxia, dark adaptation).",
+      "tasks": [
+        { "id": "A", "title": "Night Preparation" }
+      ]
+    },
+    {
+      "id": "XII",
+      "title": "Postflight Procedures",
+      "groundingNotes": "TODO: Add grounding notes — complex aircraft securing (prop to low pitch or feather per POH, gear down confirmed, systems shutdown per POH), maintenance discrepancy logging, fuel and oil service for commercial operations.",
+      "tasks": [
+        { "id": "A", "title": "After Landing, Parking, and Securing" }
+      ]
+    }
+  ]
+}

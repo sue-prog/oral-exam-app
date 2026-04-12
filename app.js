@@ -144,7 +144,14 @@ async function init() {
 
   try {
     // --- Load Config ---
-    config = await loadJSON("configs/private_asel.json");
+    // The ?rating= URL param selects which config file to load.
+    // Default is "private_asel" if no param is provided.
+    // Add new ratings by dropping a new JSON file in configs/ and passing its
+    // base name as the ?rating= value (e.g., ?rating=instrument_rating).
+    // NEVER pass user-supplied input directly to a path without sanitizing —
+    // the replace() below strips everything except safe filename characters.
+    const ratingParam = (params.get("rating") || "private_asel").replace(/[^a-z0-9_-]/gi, "");
+    config = await loadJSON(`configs/${ratingParam}.json`);
 
     // --- Load any local supplemental text (e.g., school SOP) ---
     localTextCache = await loadLocalText(config.localText);

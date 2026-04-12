@@ -1,0 +1,165 @@
+{
+  "certificate": "Flight Instructor",
+  "rating": "Airplane Single-Engine",
+
+  "acsUrl": "https://www.faa.gov/training_testing/testing/acs/cfi_acs.pdf",
+
+  "references": {
+    "PHAK": "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/phak.pdf",
+    "AIM": "https://www.faa.gov/air_traffic/publications/atpubs/aim_html/",
+    "FARs": "https://www.ecfr.gov/current/title-14",
+    "AFH": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/airplane_handbook",
+    "Aviation_Instructors_Handbook": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/aviation_instructors_handbook"
+  },
+
+  "localPdfs": [],
+  "localText": [],
+
+  "areasOfOperation": [
+    {
+      "id": "I",
+      "title": "Fundamentals of Instructing",
+      "groundingNotes": "Human behavior and effective communication: learning occurs in stages — rote, understanding, application, correlation (highest level). Rote is lowest — student can repeat back but not apply. Correlation is highest — student can apply knowledge to new situations. Domains of learning: cognitive (knowledge), affective (attitudes), psychomotor (physical skills). Characteristics of learning: purposeful, result of experience, multifaceted, active process. Perceptions and insight: learning requires perception; insight is grouping perceptions into meaningful wholes. Motivation: strongest motivator is success; negative motivations (fear of failure) are less effective long-term. Defense mechanisms: rationalization, flight (physical or mental escape), aggression, resignation — instructor must recognize and address these. Effective communication: sender → message → receiver → feedback loop. Barriers: lack of common experience, confusion between symbol and symbolized, overuse of abstractions, interference. Instructional communication: use clear, concrete examples; check for understanding; adjust vocabulary to student level.",
+      "tasks": [
+        { "id": "A", "title": "Human Behavior and Effective Communication" },
+        { "id": "B", "title": "The Learning Process" },
+        { "id": "C", "title": "The Teaching Process" },
+        { "id": "D", "title": "Teaching Methods" },
+        { "id": "E", "title": "Critique and Evaluation" },
+        { "id": "F", "title": "Flight Instructor Characteristics and Responsibilities" },
+        { "id": "G", "title": "Techniques of Flight Instruction" },
+        { "id": "H", "title": "Risk Management and Single-Pilot Resource Management" }
+      ]
+    },
+    {
+      "id": "II",
+      "title": "Technical Subject Areas",
+      "groundingNotes": "CFI must be able to teach ALL technical subjects to Private and Commercial standards. Aeromedical factors: hypoxia (histotoxic, hypemic, stagnant, hypoxic types), hyperventilation (blow off CO2 — remedy is breathing into bag or holding breath), spatial disorientation (leans, graveyard spiral, Coriolis illusion), carbon monoxide poisoning (colorless, odorless — use CO detector, open fresh air vents, land ASAP). Runway incursion avoidance: emphasize read-back of runway crossing/hold short instructions, sterile cockpit below 10,000 ft, hot spots on airport diagrams. Aeronautical decision making: DECIDE model (Detect, Estimate, Choose, Identify, Do, Evaluate); IMSAFE checklist (Illness, Medication, Stress, Alcohol, Fatigue/Food, Emotion); hazardous attitudes (antiauthority, impulsivity, invulnerability, macho, resignation) and their antidotes. CFIT (controlled flight into terrain): most common fatal accident type; prevention through situational awareness and terrain awareness systems.",
+      "tasks": [
+        { "id": "A", "title": "Aeromedical Factors" },
+        { "id": "B", "title": "Visual Scanning and Collision Avoidance" },
+        { "id": "C", "title": "Principles of Flight" },
+        { "id": "D", "title": "Aircraft Flight Controls and Operation of Systems" },
+        { "id": "E", "title": "Performance and Limitations" },
+        { "id": "F", "title": "Navigation and Navigation Systems" },
+        { "id": "G", "title": "Regulations and Publications" },
+        { "id": "H", "title": "Endorsements and Logbook Entries" },
+        { "id": "I", "title": "Water and Seaplane Characteristics (if applicable)" },
+        { "id": "J", "title": "Night Operations" },
+        { "id": "K", "title": "High Altitude Operations" }
+      ]
+    },
+    {
+      "id": "III",
+      "title": "Preflight Lesson on a Maneuver to be Performed in Flight",
+      "groundingNotes": "The ground lesson before each flight maneuver is a critical CFI skill. Structure: (1) Objective — what the student will learn; (2) Motivation — why it matters; (3) Key elements — the critical steps and standards; (4) Common errors — what goes wrong and why; (5) How to correct errors. Use the 'whole-part-whole' teaching method: demonstrate the complete maneuver, break it into parts for practice, then reassemble. Standards come from the ACS — the instructor must know exact tolerances. Use clearing turns before all practice maneuvers (two 90° turns or one 180° turn). Preflight briefing should take no more than 10-15 minutes to maintain student attention.",
+      "tasks": [
+        { "id": "A", "title": "Maneuver Lesson Plans" }
+      ]
+    },
+    {
+      "id": "IV",
+      "title": "Preflight Procedures",
+      "groundingNotes": "TODO: Add grounding notes — CFI must be able to teach the full preflight inspection, explain each step and its purpose, identify common student errors (skipping items, rushing, not sump draining enough fuel), and demonstrate the proper sequence. Emphasis on teaching the WHY behind each check, not just the checklist sequence.",
+      "tasks": [
+        { "id": "A", "title": "Preflight Assessment" },
+        { "id": "B", "title": "Flight Deck Management" },
+        { "id": "C", "title": "Engine Starting" },
+        { "id": "D", "title": "Taxiing" },
+        { "id": "E", "title": "Before Takeoff Check" }
+      ]
+    },
+    {
+      "id": "V",
+      "title": "Airport and Seaplane Base Operations",
+      "groundingNotes": "TODO: Add grounding notes — CFI must teach radio communications as a skill, not just knowledge. Students commonly rush transmissions, use non-standard phraseology, or fail to listen before transmitting. Traffic pattern: teach the rectangular pattern as a wind-correction exercise; each leg has a specific bank angle correction for wind. Light signals must be memorized — practice scenarios where radio fails.",
+      "tasks": [
+        { "id": "A", "title": "Communications, Light Signals, and Runway Lighting Systems" },
+        { "id": "B", "title": "Traffic Patterns" }
+      ]
+    },
+    {
+      "id": "VI",
+      "title": "Takeoffs, Landings, and Go-Arounds",
+      "groundingNotes": "Teaching landings is the most time-intensive CFI skill. Flare timing is the hardest skill to teach — student must learn to judge height above runway. Common student errors: round-out too high (drop in), too low (bounce), looking at nose instead of far end of runway, failing to add power on go-around. CFI must be able to take controls smoothly and without drama. Demonstrate go-around early and decisively — do not let a bad approach deteriorate. Soft-field: student tendency is to rotate too aggressively and balloon. Short-field: student tendency is to land past the target point.",
+      "tasks": [
+        { "id": "A", "title": "Normal Takeoff and Climb" },
+        { "id": "B", "title": "Normal Approach and Landing" },
+        { "id": "C", "title": "Soft-Field Takeoff and Climb" },
+        { "id": "D", "title": "Soft-Field Approach and Landing" },
+        { "id": "E", "title": "Short-Field Takeoff and Maximum Performance Climb" },
+        { "id": "F", "title": "Short-Field Approach and Landing" },
+        { "id": "G", "title": "Forward Slip to a Landing" },
+        { "id": "H", "title": "Go-Around / Rejected Landing" }
+      ]
+    },
+    {
+      "id": "VII",
+      "title": "Fundamentals of Flight",
+      "groundingNotes": "Four forces: lift, weight, thrust, drag. In level unaccelerated flight: lift = weight, thrust = drag. Angle of attack (AOA) is the angle between the chord line and the relative wind — NOT the pitch attitude. Critical AOA: the AOA at which CLmax is reached (approximately 18° for most GA aircraft). Exceeding critical AOA = stall regardless of airspeed or attitude. Bernoulli's principle (pressure differential) and Newton's third law both contribute to lift generation. Adverse yaw: when banking, outside aileron goes down (increased lift/drag), causing yaw toward the lowered wing — corrected with rudder. Common student misconception: confusing pitch attitude with angle of attack.",
+      "tasks": [
+        { "id": "A", "title": "Straight-and-Level Flight" },
+        { "id": "B", "title": "Level Turns" },
+        { "id": "C", "title": "Straight Climbs and Climbing Turns" },
+        { "id": "D", "title": "Straight Descents and Descending Turns" }
+      ]
+    },
+    {
+      "id": "VIII",
+      "title": "Performance and Ground Reference Maneuvers",
+      "groundingNotes": "Steep turns (teaching): students commonly lose altitude (fail to add back pressure) or fail to add power. Have student watch the horizon, not the bank angle indicator. Pre-entry clearing turns mandatory. Entry airspeed at Va or below. Load factor at 45° bank: 1.41G. Ground reference maneuvers teach wind drift correction — the concept of crabbing applies to all phases of flight including traffic patterns. Pivotal altitude for eights on pylons: altitude in feet = groundspeed squared ÷ 11.3. Chandelle and lazy eight teach precision and coordination — demonstrate slowly and explain each phase before student attempts.",
+      "tasks": [
+        { "id": "A", "title": "Steep Turns" },
+        { "id": "B", "title": "Ground Reference Maneuvers" },
+        { "id": "C", "title": "Chandelle" },
+        { "id": "D", "title": "Lazy Eight" },
+        { "id": "E", "title": "Eights on Pylons" }
+      ]
+    },
+    {
+      "id": "IX",
+      "title": "Slow Flight, Stalls, and Spins",
+      "groundingNotes": "LEFT-TURNING TENDENCIES require RIGHT RUDDER — this is the most commonly failed concept for stall/spin training. CFI must be able to clearly explain all four left-turning tendencies. Spin training is REQUIRED for CFI certificate (61.183(i)): must receive spin training and log it with an authorized instructor in an aircraft certificated for spins. PARE recovery: Power off, Ailerons neutral, Rudder full opposite rotation, Elevator forward to break stall. Incipient spin: first 1-2 turns; developed spin: stable rotation. Distinguish from spiral dive: spiral has increasing airspeed, high G, wings level tendency; spin has decreasing/stable airspeed, low G, rotation. Recovery from spiral dive (NOT spin): reduce power first, then level wings, then pull out — pulling first increases G and tightens spiral. Cross-control stall demonstration: must be done at safe altitude (at least 1500 ft AGL); simulates base-to-final turn stall scenario.",
+      "tasks": [
+        { "id": "A", "title": "Maneuvering During Slow Flight" },
+        { "id": "B", "title": "Power-Off Stalls" },
+        { "id": "C", "title": "Power-On Stalls" },
+        { "id": "D", "title": "Cross-Control Stalls" },
+        { "id": "E", "title": "Accelerated Stalls" },
+        { "id": "F", "title": "Spin Awareness and Spins" }
+      ]
+    },
+    {
+      "id": "X",
+      "title": "Basic Instrument Maneuvers",
+      "groundingNotes": "TODO: Add grounding notes — CFI must teach partial panel and full panel instrument flying. Emphasis on teaching the scan technique (selective radial scan), explaining the lag of performance instruments vs. control instruments, and demonstrating unusual attitude recovery. IFR-rated CFIs must also be able to teach holds, approaches, and lost comm procedures.",
+      "tasks": [
+        { "id": "A", "title": "Straight-and-Level Flight" },
+        { "id": "B", "title": "Constant Airspeed Climbs" },
+        { "id": "C", "title": "Constant Airspeed Descents" },
+        { "id": "D", "title": "Turns to Headings" },
+        { "id": "E", "title": "Recovery from Unusual Flight Attitudes" },
+        { "id": "F", "title": "Radio Communications, Navigation Systems/Facilities, and Radar Services" }
+      ]
+    },
+    {
+      "id": "XI",
+      "title": "Emergency Operations",
+      "groundingNotes": "CFI emergency transfer of controls: use a clear verbal command and physical indication — 'I have the controls' / 'You have the controls' / student confirms 'I have the controls.' Never ambiguous. Simulated engine failure: introduce at safe altitude (minimum 1500 ft AGL); do not allow student to fixate on the emergency at expense of flying the aircraft. Teach ABCDE: Airspeed (Vg), Best field, Checklist, Declare/Distress, Execute. Student common errors: forgetting to maintain airspeed, choosing a field that is too far away, skipping checklist steps. CFI must be ready to take controls if student freezes or makes unsafe input. Simulated emergencies must only be introduced when student has sufficient skill to safely manage them.",
+      "tasks": [
+        { "id": "A", "title": "Emergency Descent" },
+        { "id": "B", "title": "Emergency Approach and Landing" },
+        { "id": "C", "title": "Systems and Equipment Malfunctions" },
+        { "id": "D", "title": "Emergency Equipment and Survival Gear" }
+      ]
+    },
+    {
+      "id": "XII",
+      "title": "Postflight Procedures",
+      "groundingNotes": "TODO: Add grounding notes — debriefing is one of the most valuable instructional tools. Effective debrief: objective, focused on performance not personality, covers what went well AND what to improve, ends with specific goals for next lesson. Logbook entries: CFI must sign each lesson and verify total time, cross-country time, night time, and instrument time are logged correctly. Endorsements must be specific, dated, and reference the regulation endorsed.",
+      "tasks": [
+        { "id": "A", "title": "After Landing, Parking, and Securing" }
+      ]
+    }
+  ]
+}

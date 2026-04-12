@@ -1,0 +1,100 @@
+{
+  "certificate": "Instrument Rating",
+  "rating": "Airplane",
+
+  "acsUrl": "https://www.faa.gov/training_testing/testing/acs/instrument_rating_acs.pdf",
+
+  "references": {
+    "PHAK": "https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/phak.pdf",
+    "AIM": "https://www.faa.gov/air_traffic/publications/atpubs/aim_html/",
+    "FARs": "https://www.ecfr.gov/current/title-14",
+    "AFH": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/airplane_handbook",
+    "IFH": "https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/instrument_flying_handbook"
+  },
+
+  "localPdfs": [],
+  "localText": [],
+
+  "areasOfOperation": [
+    {
+      "id": "I",
+      "title": "Preflight Preparation",
+      "groundingNotes": "IFR currency: 6 instrument approaches, holding procedures, and intercepting/tracking courses within the preceding 6 calendar months (14 CFR 61.57(c)). If currency lapsed, must complete an IPC with an authorized instructor. IFR flight plan required for flight in controlled airspace in IMC. IFR alternate required if destination airport weather at ETA is below 2000 ft ceiling / 3 SM visibility (1-2-3 rule: within 1 hour of ETA, forecast ceiling below 2000 ft or visibility below 3 SM). Alternate minimums: precision approach — 600 ft ceiling / 2 SM; non-precision — 800 ft ceiling / 2 SM (unless published alternate minimums differ). ATIS/D-ATIS should be obtained before departure. NOTAMs must be checked for destination and alternate. TFRs checked via 1800wxbrief or similar.",
+      "tasks": [
+        { "id": "A", "title": "Pilot Qualifications" },
+        { "id": "B", "title": "Airworthiness Requirements" },
+        { "id": "C", "title": "Weather Information" },
+        { "id": "D", "title": "Cross-Country Flight Planning" }
+      ]
+    },
+    {
+      "id": "II",
+      "title": "Preflight Procedures",
+      "groundingNotes": "IFR equipment requirements (14 CFR 91.205(d)): GRABCARD — Generator/alternator, Radio (comm and nav), Altimeter (sensitive), Ball (slip/skid indicator), Clock (with seconds), Attitude indicator, Rate-of-turn indicator, Directional gyro. Also required: DME or RNAV above FL240. Pitot heat required for flight in known/forecast icing conditions. Instruments must be checked: attitude indicator — erect and stable within 5 minutes; heading indicator — aligned with compass; altimeter — set to local altimeter setting, read within 75 ft of field elevation. Before departure, obtain IFR clearance and verify void time if at uncontrolled airport.",
+      "tasks": [
+        { "id": "A", "title": "Aircraft Systems Related to IFR Operations" },
+        { "id": "B", "title": "Instrument Cockpit Check" }
+      ]
+    },
+    {
+      "id": "III",
+      "title": "Air Traffic Control Clearances and Procedures",
+      "groundingNotes": "IFR clearance components: CRAFT — Clearance limit, Route, Altitude, Frequency (departure), Transponder code. Void time clearances: pilot must depart before the void time or notify ATC of intentions. Clearance on request: pilot requests amendment if route/altitude is unacceptable. Holding entry procedures — standard holding is right turns: (1) Parallel entry: when approaching from within 70° on the non-holding side; (2) Teardrop entry: when approaching from within 110° on the holding side past the holding course; (3) Direct entry: all other situations. Holding airspeed limits: at or below 6000 ft MSL — 200 KIAS; 6001–14000 ft — 230 KIAS; above 14000 ft — 265 KIAS. Standard hold legs: 1 minute below 14000 ft MSL; 1.5 minutes at or above 14000 ft. EFC time must be obtained before entering a hold if communications are lost. Lost comms in VMC: remain VMC and land as soon as practicable. Lost comms in IMC: fly the highest of last assigned, expected, or filed altitude (MEA); fly the most direct route; begin approach at EFC time or ETA if no EFC.",
+      "tasks": [
+        { "id": "A", "title": "ATC Clearances" },
+        { "id": "B", "title": "Holding Procedures" }
+      ]
+    },
+    {
+      "id": "IV",
+      "title": "Flight by Reference to Instruments",
+      "groundingNotes": "Standard rate turn: 3° per second; bank angle ≈ (airspeed ÷ 10) + 7. Timed turns: 3°/sec — 60° turn = 20 sec, 180° = 60 sec, 360° = 120 sec. Attitude instrument flying: attitude indicator is the control instrument; altimeter, VSI, and airspeed are performance instruments. Scan technique: selective radial scan centered on AI. Partial panel — if AI fails: use turn coordinator for bank, VSI/altimeter for pitch. Magnetic compass turning errors (northern hemisphere): UNOS — Undershoot North, Overshoot South. ANDS acceleration errors: Accelerate-North, Decelerate-South. Unusual attitude recovery — nose high: reduce back pressure, increase power, level wings in that order; nose low: reduce power, level wings, then pull to horizon.",
+      "tasks": [
+        { "id": "A", "title": "Straight-and-Level Flight" },
+        { "id": "B", "title": "Turns" },
+        { "id": "C", "title": "Change of Airspeed in Turns" },
+        { "id": "D", "title": "Steep Turns" },
+        { "id": "E", "title": "Recovery from Unusual Flight Attitudes" }
+      ]
+    },
+    {
+      "id": "V",
+      "title": "Navigation Systems",
+      "groundingNotes": "VOR: full-scale CDI deflection = 10°; 2° per dot with 5-dot display. TO flag means flying toward the station (or would intercept the selected radial flying TO). FROM flag means flying away from the station. Reverse sensing occurs when flying away from station with TO selected or toward with FROM — never turn toward the needle in reverse sensing. DME arc: maintain constant DME distance by turning 10° ahead of the arc, use lead radials. GPS RAIM (Receiver Autonomous Integrity Monitoring) must be checked before IFR flight; RAIM prediction available via preflight. LPV approaches require WAAS GPS. RNAV (GPS) requires database current within 28-day cycle. ILS: localizer is 2.5° full-scale deflection each side; glideslope is 0.7° full deflection above/below. Standard glideslope: 3°. At 200 ft AHA on ILS, you should be at DA — do not descend below unless runway environment in sight. DME arcs: lead radial = arc radius ÷ 10 (in NM), use to roll out on final.",
+      "tasks": [
+        { "id": "A", "title": "Intercepting and Tracking Navigational Systems and DME Arcs" },
+        { "id": "B", "title": "Departure, En Route, and Arrival Operations" }
+      ]
+    },
+    {
+      "id": "VI",
+      "title": "Instrument Approach Procedures",
+      "groundingNotes": "Approach categories based on Vref (1.3 Vso): Cat A < 91 kt, Cat B 91–120 kt, Cat C 121–140 kt, Cat D 141–165 kt. Decision Altitude (DA) used for precision approaches (ILS, LPV) — pilot must decide at DA whether to continue or miss. Minimum Descent Altitude (MDA) used for non-precision approaches — level off at MDA and continue until MAP or go missed. Visibility must be at or above minimums at the MAP to continue. Runway environment must be distinctly visible and identifiable before descending below MDA. Precision approach (ILS): DA/DH typically 200 ft HAT for Cat I. Non-precision (VOR, NDB, RNAV): MDA varies. LNAV: like VOR/NDB non-precision; LNAV+V: adds advisory glidepath; LNAV/VNAV: uses baro-VNAV; LPV: precision-like with WAAS, lowest minimums. Missed approach: execute immediately at DA/MAP; follow published procedure exactly; climb to published missed approach altitude before turning unless otherwise directed. Circling approach: maintain visual contact with airport; stay within circling radius for your approach category; if visual contact lost, execute missed approach immediately.",
+      "tasks": [
+        { "id": "A", "title": "Non-Precision Approach" },
+        { "id": "B", "title": "Precision Approach" },
+        { "id": "C", "title": "Missed Approach" },
+        { "id": "D", "title": "Circling Approach" },
+        { "id": "E", "title": "Landing from an Instrument Approach" }
+      ]
+    },
+    {
+      "id": "VII",
+      "title": "Emergency Operations",
+      "groundingNotes": "TODO: Add grounding notes for IFR emergency procedures — lost comms (squawk 7600, fly AVEF: Assigned/Vectored/Expected/Filed altitude and route), partial panel procedures, pitot-static failures, vacuum system failures, electrical failures, icing encounter procedures, emergency descent. Lost comms altitude: fly highest of last assigned altitude, expected altitude, or filed altitude. Lost comms route: fly direct to fix, then as filed.",
+      "tasks": [
+        { "id": "A", "title": "Loss of Communications" },
+        { "id": "B", "title": "Partial Panel (Loss of Primary Flight Instruments)" },
+        { "id": "C", "title": "Systems and Equipment Malfunctions" }
+      ]
+    },
+    {
+      "id": "VIII",
+      "title": "Postflight Procedures",
+      "groundingNotes": "TODO: Add grounding notes for IFR postflight — closing flight plan (must be done or SAR initiated), logging instrument time (must be actual or simulated IMC under CFI supervision), currency tracking.",
+      "tasks": [
+        { "id": "A", "title": "After Landing, Parking, and Securing" }
+      ]
+    }
+  ]
+}
