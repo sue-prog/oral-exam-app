@@ -900,7 +900,11 @@ function handleNext() {
 // After the student answers, we send a second prompt to the LLM asking it
 // to evaluate the answer and provide feedback.
 function buildEvalPrompt(originalResponse, studentAnswer, area, task) {
-  const groundingNotes = area.groundingNotes || "";
+  // Use task-level groundingNotes if available — more specific, fewer tokens.
+  // Fall back to area-level groundingNotes if the task has none.
+  // To add task-level notes: add a "groundingNotes" field to the task object
+  // in the config file alongside "id" and "title".
+  const groundingNotes = (task?.groundingNotes) || area.groundingNotes || "";
   return JSON.stringify({
     role: "evaluator",
     certificate: config.certificate,
