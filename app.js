@@ -448,7 +448,7 @@ async function askNextQuestion() {
     if (area) {
       if (!recentQuestionsByArea[area.id]) recentQuestionsByArea[area.id] = [];
       const recent = recentQuestionsByArea[area.id];
-      recent.push(llmData.question.slice(0, 120));
+      recent.push(llmData.question.slice(0, 300));
       if (recent.length > RECENT_QUESTION_MEMORY) recent.shift();
     }
   }
@@ -685,7 +685,7 @@ async function buildPrompt(area, task) {
   // Injected into the prompt so the AI explicitly avoids repeating concepts.
   const recent = recentQuestionsByArea[area.id] || [];
   const recentContext = recent.length > 0
-    ? "Questions already asked this session (DO NOT repeat these concepts or close variations):\n" +
+    ? "The following questions were ALREADY asked in this session. You MUST NOT ask about the same topic again — not with different wording, not with a different scenario, not as a follow-up. Pick a completely different concept from this area:\n" +
       recent.map((q, i) => `  ${i + 1}. ${q}`).join("\n")
     : "";
 
@@ -934,8 +934,27 @@ function buildEvalPrompt(originalResponse, studentAnswer, area, task) {
       "If the scenario places the student in cruise flight, do not penalize them for not discussing takeoff factors. " +
       "If the scenario specifies a particular aircraft type, altitude, weather, or phase of flight, " +
       "treat those as fixed constraints and grade within them. " +
+      "CRITICAL — ONLY USE EXPLICITLY STATED DETAILS: " +
+      "Do NOT assume any operational detail that was not explicitly written in the scenario. " +
+      "This includes: time of day (day vs. night), weather conditions, pilot certificate level, " +
+      "flight rules (VFR vs. IFR), airspace class, passenger status, and phase of flight. " +
+      "If a detail is not stated in the scenario, treat it as unknown — do not assume it one way or the other. " +
+      "If the student's answer is correct under any reasonable reading of the unstated conditions, " +
+      "do not penalize them for it. " +
+      "If a key condition was absent from the scenario and the correct answer genuinely depends on it, " +
+      "note the ambiguity briefly in feedback but do not mark the answer incorrect solely because of that gap. " +
       "If there is a clear contradiction between scenario and question, note it briefly in feedback " +
       "but do not penalize the student — grade against the question as asked. " +
+
+      "STEP 2B — MATCH PROCEDURES TO THE SCENARIO ENVIRONMENT. " +
+      "The type of airport and airspace in the scenario determines which procedures are relevant. " +
+      "Tower-specific procedures (light gun signals, ATC clearances, Class D radio calls, ATIS) " +
+      "apply ONLY when the scenario places the student at a TOWERED airport. " +
+      "Non-towered procedures (CTAF self-announce, UNICOM) apply ONLY at non-towered airports. " +
+      "NEVER penalize a student for failing to mention a procedure that belongs to a different " +
+      "airport environment than the one described in the scenario. " +
+      "This principle extends to all environment-specific knowledge: IFR procedures do not apply " +
+      "to a VFR-only scenario; night requirements do not apply to a daytime scenario; etc. " +
 
       // Step 3: grade narrowly
       "STEP 3 — GRADE NARROWLY. " +
@@ -947,10 +966,21 @@ function buildEvalPrompt(originalResponse, studentAnswer, area, task) {
       "CRITICAL: if any part of the answer contains a specific factual error (wrong direction, wrong number, " +
       "wrong procedure step, wrong control input), grade 'partial' or 'incorrect' regardless of what else was correct. " +
 
+      "DISTINGUISHING MINOR FROM MEANINGFUL OMISSIONS: " +
+      "Before assigning 'partial', ask: would a real FAA examiner stop the student and say 'that's not good enough'? " +
+      "If the student demonstrated they know the procedure or concept, a missing supporting detail is minor — " +
+      "mention it in feedback but grade 'correct'. " +
+      "Only assign 'partial' when the omission is something the examiner would genuinely probe further — " +
+      "a required element that stands on its own, not just elaboration of something the student already said. " +
+      "Example: saying 'I'll sump the fuel' demonstrates knowledge of the sumping procedure. " +
+      "Not specifying what to look for (water, contamination, correct grade) is a minor omission — " +
+      "grade 'correct' and mention it briefly in feedback. " +
+      "Contrast: saying nothing about fuel at all during a preflight discussion is a meaningful omission. " +
+
       // Grades
       "Use exactly these grades: " +
-      "'correct' — answer is factually accurate and responsive to what was asked, even if not exhaustive; " +
-      "'partial' — got the core idea right but missed a meaningful required element, or contained a minor factual error; " +
+      "'correct' — answer addresses what was asked, including answers that are right in substance but omit minor supporting details; " +
+      "'partial' — got the core idea but missed a genuinely required element a real examiner would probe, or contained a minor factual error; " +
       "'incorrect' — clear factual error that would fail a checkride, or completely missed what was asked. " +
 
       // Output
